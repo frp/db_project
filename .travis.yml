@@ -1,0 +1,7 @@
+deploy:
+  provider: heroku
+  api_key:
+    secure: QFnr73B0XnMokMS3ERFNxRfrR64KLucDswBP/abByYjVFfGnzgIrlNZ+kCyD66Xs6f13OonIf2KFqStVFg7vg524D8MRDk1t2krg16U0vhAn+jetPBTSjiHox6nqcnz/UrwyA7QajLpL6bMq/14i02j5pQeJD0kcAYJEDoLUzMk=
+  app: serene-journey-8777
+  on:
+    repo: frp/db_project
