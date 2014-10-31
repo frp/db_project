@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 exports.pool  = mysql.createPool({
 	connectionLimit: 10,
-	host: 'localhost',
-	user: 'db_project',
-	password: 'db_password',
-	database: 'db_project'
+	host: process.env.DBP_HOST || 'localhost',
+	user: process.env.DBP_USER || 'db_project',
+	password: process.env.DBP_PASSWORD || 'db_password',
+	database: process.env.DBP_DATABASE || 'db_project'
 });
 exports.prefix = 'dbp_';
 
