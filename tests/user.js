@@ -61,6 +61,14 @@ exports.testAuthorizationWrongPassword = setUpDb(setUpUser(function(test) {
 	});
 }));
 
+exports.testUserNotFound = setUpDb(function(test) {
+	user.findById(5, function(err, data) {
+		test.equals(data, null);
+		test.equals(err, user.err_user_not_found);
+		test.done();
+	});
+});
+
 exports.testKillDb = function(test) {
 	dbaccess.pool.end(function() {
 		test.done();

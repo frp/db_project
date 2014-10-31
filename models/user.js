@@ -61,9 +61,15 @@ var schema = {
 	}
 };
 
+exports.err_user_not_found = -1;
+exports.err_wrong_passwrod = -2;
+
 exports.findById = function(id, cb) {
 	pool.query('SELECT * FROM ' + tableName + ' WHERE user_id = ?', [id], function(err, rows) {
-		cb(err, rows[0]);
+		if (rows.length != 1)
+			cb(exports.err_user_not_found, null);
+		else
+			cb(err, rows[0]);
 	});
 };
 
@@ -82,9 +88,6 @@ exports.initTables = function(cb) {
 		});
 	});
 };
-
-exports.err_user_not_found = -1;
-exports.err_wrong_passwrod = -2;
 
 exports.authorization = function(login, password, cb) {
 	pool.query('SELECT user_id, password FROM ' + tableName + ' WHERE email = ?', [login], function(err, rows) {
