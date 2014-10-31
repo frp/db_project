@@ -1,13 +1,13 @@
 var Users = require("../models/user")
 
 exports.get = function(req, res, next){
-    var userId = req.body.id
+    var userId = req.params.id
     Users.findById(userId, function(err, user){
-        if(err) res.rendor("error")
+        if(err) res.send("User not found")
         else{
             res.render("userPage", {
                 user :user,
-                id: req.session.userId
+                userId: req.session.userId
             })
         }
     })
