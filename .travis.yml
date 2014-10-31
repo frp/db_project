@@ -5,9 +5,9 @@ before_script:
     - mysql -e 'create database db_project default character set utf8 default collate utf8_general_ci;'
 env:
     - DBP_DB=db_project
-    - DBP_USER=travis
-    - DBP_PASSWORD=
-    - DBP_HOST=127.0.0.1
+      DBP_USER=travis
+      DBP_PASSWORD=
+      DBP_HOST=127.0.0.1
 deploy:
   provider: heroku
   api_key:
