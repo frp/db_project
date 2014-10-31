@@ -6,7 +6,6 @@ before_script:
 env:
     - DBP_DB=db_project
       DBP_USER=travis
-      DBP_PASSWORD=
       DBP_HOST=127.0.0.1
 deploy:
   provider: heroku
