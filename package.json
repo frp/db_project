@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-	"test": "nodeunit ./tests/"
+    "test": "./node_modules/nodeunit/bin/nodeunit ./tests/"
   },
   "dependencies": {
     "express": "~3.4.8",
@@ -16,5 +16,6 @@
     "ejs": "~0.8.5",
     "mysql": "~2.5.1",
     "express-validator": "~2.6.0"
+    "nodeunit": "~0.9.0"
   }
 }
