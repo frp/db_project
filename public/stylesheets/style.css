@@ -1,8 +1,33 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.header{
+    width: 700px;
+    height: 100px;
+    margin: 0 auto;
 }
-
-a {
-  color: #00B7FF;
+.emblem {
+    width: 500px;
+    height: 100px;
+    background-color: red;
+    float: left;
+}
+.body{
+    width: 700px;
+    margin: 0 auto;
+}
+.navigation{
+    float: left;
+    width: 200px;
+    height: 500px;
+    background-color: green;
+}
+.page{
+    float: right;
+    width: 500px;
+    height: 500px;
+    background-color: yellow;
+}
+.login{
+    background-color: blue;
+    height: 100px;
+    width: 200px;
+    float: left;
 }

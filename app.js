@@ -5,7 +5,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-expressValidator = require('express-validator')
+var expressValidator = require('express-validator')
 
 var config = require('./config');
 
@@ -13,6 +13,7 @@ var config = require('./config');
 var app = express();
 
 // view engine setup
+app.engine('ejs', require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

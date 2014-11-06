@@ -103,3 +103,17 @@ exports.authorization = function(login, password, cb) {
 	});
 }
 
+exports.search = function(filter, callback){
+    //TODO: please, i need this method =);  callback(err, arrayOfUsers)
+    callback(null, [{
+        user_id: 1,
+        name: "qwerty",
+        surname: "petrov",
+        email: "qweqweqweqw@kkdkas.sd"
+    },{
+        user_id: 2,
+        name: "wqwqwerty",
+        surname: "wqwqpetrov",
+        email: "yuioqweqweqweqw@kkdkas.sd"
+    }])
+}
