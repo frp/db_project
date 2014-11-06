@@ -1,4 +1,4 @@
-var Users = require("../models/user")
+var Users = require("../../models/user")
 
 exports.get = function(req, res, next){
     res.render('registration');
@@ -21,7 +21,6 @@ exports.post = function(req, res, next){
         Users.save(req.body, function(err){
                 if(err) next(err)
                 else{
-
                     res.send("Registration successful <a href='/'>on first page</a>")
                     //TODO: подумать, куда его редиректнуть
                 }

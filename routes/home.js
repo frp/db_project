@@ -7,11 +7,24 @@ module.exports.get = function(req, res, next){
     res.render("home");
 }
 module.exports.post = function(req, res, next){
-    Users.authorization(req.body.login, req.body.password, function(err, userId){
-        if(err) res.render("/home", {Error: "User not found or wrong password"})
-        else {
-            req.session.userId = userId;
-            res.redirect("/users/"+userId);
-        }
-    })
+
+    req.assert("login","Name can't be empty").notEmpty()
+    req.assert("password","Name can't be empty").notEmpty()
+
+    var errors = req.validationErrors();
+
+    if (errors) {
+        res.redirect("/");
+    }
+    else {
+        //TODO: authorisation doesn't work with empty login and password
+
+        Users.authorization(req.body.login, req.body.password, function (err, userId) {
+            if (err) res.render("/home")
+            else {
+                req.session.userId = userId;
+                res.redirect("/users/" + userId);
+            }
+        })
+    }
 }

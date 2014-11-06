@@ -1,4 +1,4 @@
-var Users = require("../models/user")
+var Users = require("../../models/user")
 
 exports.get = function(req, res, next){
     var userId = req.params.id
@@ -13,5 +13,5 @@ exports.get = function(req, res, next){
     })
 }
 exports.post = function(req, res, next){
-
+// TODO: are we need this?
 }
