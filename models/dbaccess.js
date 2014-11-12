@@ -102,3 +102,12 @@ exports.findByIdFunction = function(tableName, idFieldName) {
 		});
 	};
 };
+
+exports.saveFunction = function(tableName, idField) {
+	return function(data, cb) {
+		if (typeof data[idField] == 'undefined')
+			exports.insertIntoTable(tableName, data, cb);
+		else
+			exports.update(tableName, data, cb)
+	}
+};

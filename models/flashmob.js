@@ -40,12 +40,7 @@ var schema = {
 
 exports.findById = dbaccess.findByIdFunction(tableName, 'flashmob_id');
 
-exports.save = function(data, cb) {
-	if (typeof data.flashmob_id == 'undefined')
-		dbaccess.insertIntoTable(tableName, data, cb);
-	else
-		dbaccess.update(tableName, data, cb);
-};
+exports.save = dbaccess.saveFunction(tableName, 'flashmob_id');
 
 exports.initTables = function(cb) {
 	pool.query('DROP TABLE ' + tableName, function(err, result) {
