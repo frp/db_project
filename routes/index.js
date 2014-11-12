@@ -11,7 +11,7 @@ module.exports = function(app){
     app.get('/users/:id', require('./user/userPage').get)
     app.get('/users/:id/settings', require('./user/settings').get)
 
-    app.get('/falshmob/:id', require('./flashmob/flashmobPage').get)
+    app.get('/falshmob/:id', require('./flashmobs/flashmobPage').get)
 
     //app.post('/falshmob/:id', require('./flashmob/flashmobPage').post)
 
