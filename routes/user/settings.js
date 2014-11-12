@@ -13,7 +13,7 @@ exports.get = function(req, req, next){
 }
 exports.post = function(req, res, next){
     //TODO: do something, please
-    user = req.body
+    var user = req.body
     Users.save(user, function(err){
         if(err) res.send("Error save")
         else res.redirect("/users/"+req.session.id+"/setings")

@@ -13,7 +13,7 @@ exports.get = function(req, req, next){
 }
 exports.post = function(req, res, next){
     //TODO: do something, please
-    flash = req.body
+    var flash = req.body
     flash.flashmob_id = req.param.id;
 
     Flash.save(user, function(err){
