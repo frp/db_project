@@ -49,7 +49,7 @@ exports.testAuthorizationOK = setUpDb(setUpUser(function(test){
 
 exports.testAuthorizationWrongUser = setUpDb(setUpUser(function(test) {
 	user.authorization('test2@gmail.com', 'testpass', function(err, id) {
-		test.equals(err, user.err_user_not_found);
+		test.equals(err, dbaccess.err_record_not_found);
 		test.done();
 	});
 }));
@@ -64,7 +64,7 @@ exports.testAuthorizationWrongPassword = setUpDb(setUpUser(function(test) {
 exports.testUserNotFound = setUpDb(function(test) {
 	user.findById(5, function(err, data) {
 		test.equals(data, null);
-		test.equals(err, user.err_user_not_found);
+		test.equals(err, dbaccess.err_record_not_found);
 		test.done();
 	});
 });

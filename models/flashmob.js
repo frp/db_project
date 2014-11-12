@@ -1,6 +1,6 @@
-var dbaccess = require('./dbaccess')
-var pool = dbaccess.pool
-var tableName = dbaccess.prefix + 'flashmobs'
+var dbaccess = require('./dbaccess');
+var pool = dbaccess.pool;
+var tableName = dbaccess.prefix + 'flashmobs';
 
 // FIXME: determine which fields are required and which aren't
 var schema = {
@@ -38,16 +38,7 @@ var schema = {
 	// FIXME: think about other needed fields
 };
 
-exports.err_flashmob_not_found = -1;
-
-exports.findById = function(id, cb) {
-	pool.query('SELECT * FROM ' + tableName + ' WHERE flashmob_id = ?', [id], function(err, rows) {
-		if (rows.length != 1)
-			cb(exports.err_flashmob_not_found, null);
-		else
-			cb(err, rows[0]);
-	});
-};
+exports.findById = dbaccess.findByIdFunction(tableName, 'flashmob_id');
 
 exports.save = function(data, cb) {
 	if (typeof data.flashmob_id == 'undefined')

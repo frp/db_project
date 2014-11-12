@@ -1,5 +1,5 @@
-var flashmob = require('../models/flashmob')
-var dbaccess = require('../models/dbaccess')
+var flashmob = require('../models/flashmob');
+var dbaccess = require('../models/dbaccess');
 
 function setUpDb(cb) {
     return function(test) {
@@ -39,7 +39,7 @@ exports.testUpdating = setUpDb(setUpFlashmob(function(test)	{
 exports.testFlashmobNotFound = setUpDb(function(test) {
     flashmob.findById(5, function(err, data) {
         test.equals(data, null);
-        test.equals(err, flashmob.err_flashmob_not_found);
+        test.equals(err, dbaccess.err_record_not_found);
         test.done();
     });
 });

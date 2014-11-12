@@ -40,7 +40,7 @@ exports.createTable = function(name, schema, cb) {
 		}
 	query += ')';
 	exports.pool.query(query, cb)
-}
+};
 
 exports.insertIntoTable = function(name, object, cb) {
 	var query = "INSERT INTO " + name + " (";
@@ -70,7 +70,7 @@ exports.insertIntoTable = function(name, object, cb) {
 	query += ')';
 
 	exports.pool.query(query, values, cb);
-}
+};
 
 exports.update = function(name, object, cb) {
 	var query = "UPDATE " + name + " SET ";
@@ -87,4 +87,18 @@ exports.update = function(name, object, cb) {
 	}
 
 	exports.pool.query(query, values, cb);
-}
+};
+
+exports.err_record_not_found = -1;
+
+exports.findByIdFunction = function(tableName, idFieldName) {
+	return function(id, cb) {
+		exports.pool.query('SELECT * FROM ' + tableName + ' WHERE ' + idFieldName + ' = ?',
+			[id], function(err, rows) {
+			if (rows.length != 1)
+				cb(exports.err_record_not_found, null);
+			else
+				cb(err, rows[0]);
+		});
+	};
+};

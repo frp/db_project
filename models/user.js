@@ -61,17 +61,9 @@ var schema = {
 	}
 };
 
-exports.err_user_not_found = -1;
-exports.err_wrong_passwrod = -2;
+exports.err_wrong_password = -2;
 
-exports.findById = function(id, cb) {
-	pool.query('SELECT * FROM ' + tableName + ' WHERE user_id = ?', [id], function(err, rows) {
-		if (rows.length != 1)
-			cb(exports.err_user_not_found, null);
-		else
-			cb(err, rows[0]);
-	});
-};
+exports.findById = dbaccess.findByIdFunction(tableName, 'user_id');
 
 exports.save = function(data, cb) {
 	if (typeof data.user_id == 'undefined')
@@ -94,14 +86,14 @@ exports.authorization = function(login, password, cb) {
 		if (err) throw err;
 		else {
 			if (typeof rows[0] == 'undefined')
-				cb(exports.err_user_not_found, -1);
+				cb(dbaccess.err_record_not_found, -1);
 			else if (password != rows[0].password)
 				cb(exports.err_wrong_password, -1);
 			else
 				cb(null, rows[0].user_id)
 		}
 	});
-}
+};
 
 exports.search = function(filter, callback){
     //TODO: please, i need this method =);  callback(err, arrayOfUsers)
