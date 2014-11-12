@@ -69,8 +69,3 @@ exports.testUserNotFound = setUpDb(function(test) {
 	});
 });
 
-exports.testKillDb = function(test) {
-	dbaccess.pool.end(function() {
-		test.done();
-	});
-}
