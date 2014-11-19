@@ -31,6 +31,6 @@ exports.initTables = function(cb) {
     });
 };
 
-exports.save = dbaccess.saveFunction(tableName, 'id');
+exports.save = dbaccess.saveFunction(tableName, schema, 'id');
 exports.find = dbaccess.findFunction(tableName);
 exports.deleteWhere = dbaccess.deleteWhereFunction(tableName);

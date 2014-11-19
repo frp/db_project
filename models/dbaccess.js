@@ -30,6 +30,9 @@ exports.createTable = function(name, schema, cb) {
 				query += ')'
 			}
 
+			if (!!field.required)
+				query += ' NOT NULL';
+
 			if (!!field.primary_key)
 				query += ' PRIMARY KEY';
 
@@ -45,57 +48,72 @@ exports.createTable = function(name, schema, cb) {
 	exports.pool.query(query, cb)
 };
 
-exports.insertIntoTable = function(name, object, cb) {
-	var query = "INSERT INTO " + name + " (";
-	var first = true
-	for (var field_name in object) {
-		if (typeof(object[field_name]) != 'function') {
-			if (first)
-				first = false;
-			else
-				query += ',';
-			query += field_name;
-		}
-	}
+exports.err_validation_failed = -3;
 
-	query += ') VALUES (';
-	first = true;
-
-	var values = [];
-
-	for (field_name in object) {
-		if (typeof(object[field_name]) != 'function') {
-			if (first)
-				first = false;
-			else
-				query += ', ';
-			query += '?';
-			values.push(object[field_name])
-		}
-	}
-
-	query += ')';
-
-	exports.pool.query(query, values, cb);
+exports.validate = function(object, schema) {
+	for (var field_name in schema)
+		if (!!schema[field_name].required && typeof(object[field_name]) == 'undefined')
+			return false;
+	return true;
 };
 
-exports.update = function(name, object, cb) {
-	var query = "UPDATE " + name + " SET ";
-
-	var first = true;
-	var values = [];
-	for (var field_name in object) {
-		if (typeof(object[field_name]) != 'function') {
-			if (first)
-				first = false;
-			else
-				query += ', ';
-			query += field_name + " = ?";
-			values.push(object[field_name]);
+exports.insertIntoTable = function(name, object, schema, cb) {
+	if (exports.validate(object, schema)) {
+		var query = "INSERT INTO " + name + " (";
+		var first = true
+		for (var field_name in object) {
+			if (typeof(object[field_name]) != 'function') {
+				if (first)
+					first = false;
+				else
+					query += ',';
+				query += field_name;
+			}
 		}
-	}
 
-	exports.pool.query(query, values, cb);
+		query += ') VALUES (';
+		first = true;
+
+		var values = [];
+
+		for (field_name in object) {
+			if (typeof(object[field_name]) != 'function') {
+				if (first)
+					first = false;
+				else
+					query += ', ';
+				query += '?';
+				values.push(object[field_name])
+			}
+		}
+
+		query += ')';
+
+		exports.pool.query(query, values, cb);
+	}
+	else cb(exports.err_validation_failed)
+};
+
+exports.update = function(name, object, schema, cb) {
+	if (exports.validate(object, schema)) {
+		var query = "UPDATE " + name + " SET ";
+
+		var first = true;
+		var values = [];
+		for (var field_name in object) {
+			if (typeof(object[field_name]) != 'function') {
+				if (first)
+					first = false;
+				else
+					query += ', ';
+				query += field_name + " = ?";
+				values.push(object[field_name]);
+			}
+		}
+
+		exports.pool.query(query, values, cb);
+	}
+	else cb(exports.err_validation_failed);
 };
 
 exports.err_record_not_found = -1;
@@ -111,12 +129,12 @@ exports.findByIdFunction = function(tableName, idFieldName, objectToExtend) {
 	};
 };
 
-exports.saveFunction = function(tableName, idField) {
+exports.saveFunction = function(tableName, schema, idField) {
 	return function(data, cb) {
 		if (typeof data[idField] == 'undefined')
-			exports.insertIntoTable(tableName, data, cb);
+			exports.insertIntoTable(tableName, data, schema, cb);
 		else
-			exports.update(tableName, data, cb)
+			exports.update(tableName, data, schema, cb)
 	}
 };
 

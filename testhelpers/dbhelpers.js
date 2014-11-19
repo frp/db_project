@@ -53,8 +53,7 @@ exports.setUpFlashmob = function(cb) {
 exports.setUpUser = function(cb) {
     return function(test) {
         user.save({
-            name: 'User',
-            surname: 'Test',
+            login: 'user',
             email: 'test@gmail.com',
             password: 'testpass'
         }, function (err) {

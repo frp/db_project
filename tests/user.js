@@ -47,3 +47,9 @@ exports.testUserNotFound = helpers.setUpDb(function(test) {
 	});
 });
 
+exports.testRequiredFields = helpers.setUpDb(function(test) {
+	user.save({email: 'aaa@bbb.com'}, function(err) {
+		test.equals(err, dbaccess.err_validation_failed);
+		test.done();
+	})
+});

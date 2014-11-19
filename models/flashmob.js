@@ -64,7 +64,7 @@ Flashmob.prototype.deleteMember = function(userId, type, cb) {
 
 exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());
 
-exports.save = dbaccess.saveFunction(tableName, 'id');
+exports.save = dbaccess.saveFunction(tableName, schema, 'id');
 
 exports.initTables = function(cb) {
 	dbaccess.createTable(tableName, schema, function(err, result){

@@ -2,12 +2,16 @@ var dbaccess = require('./dbaccess')
 var pool = dbaccess.pool
 var tableName = dbaccess.prefix + 'users'
 
-// FIXME: визначитись з тим, які поля обов’язкові, а які — ні
 var schema = {
 	id: {
 		db_type: 'INT',
 		primary_key: true,
 		auto_increment: true
+	},
+	login: {
+		db_type: 'VARCHAR',
+		length: 30,
+		required: true
 	},
 	name: {
 		db_type: 'VARCHAR',
@@ -35,7 +39,8 @@ var schema = {
 	},
 	email: {
 		db_type: 'VARCHAR',
-		length: 70
+		length: 70,
+		required: true
 	},
 	phone: {
 		db_type: 'VARCHAR',
@@ -45,7 +50,9 @@ var schema = {
 		db_type: 'VARCHAR',
 		length: 50
 	},
-	//FIXME: обговорити і додати "інші" контактні дані
+	other: {
+		db_type: 'TEXT'
+	},
 	password: {
 		db_type: 'VARCHAR',
 		length: 50
@@ -65,7 +72,7 @@ exports.err_wrong_password = -2;
 
 exports.findById = dbaccess.findByIdFunction(tableName, 'id', {});
 
-exports.save = dbaccess.saveFunction(tableName, 'id');
+exports.save = dbaccess.saveFunction(tableName, schema, 'id');
 
 exports.initTables = function(cb) {
 	dbaccess.createTable(tableName, schema, function(err, result){
