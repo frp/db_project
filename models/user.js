@@ -4,7 +4,7 @@ var tableName = dbaccess.prefix + 'users'
 
 // FIXME: визначитись з тим, які поля обов’язкові, а які — ні
 var schema = {
-	user_id: {
+	id: {
 		db_type: 'INT',
 		primary_key: true,
 		auto_increment: true
@@ -63,21 +63,18 @@ var schema = {
 
 exports.err_wrong_password = -2;
 
-exports.findById = dbaccess.findByIdFunction(tableName, 'user_id');
+exports.findById = dbaccess.findByIdFunction(tableName, 'id', {});
 
-exports.save = dbaccess.saveFunction(tableName, 'user_id');
+exports.save = dbaccess.saveFunction(tableName, 'id');
 
 exports.initTables = function(cb) {
-	pool.query('DROP TABLE ' + tableName, function(err, result) {
-		// Ignore error, it may mean that table exists
-		dbaccess.createTable(tableName, schema, function(err, result){
-			cb(err);
-		});
+	dbaccess.createTable(tableName, schema, function(err, result){
+		cb(err);
 	});
 };
 
 exports.authorization = function(login, password, cb) {
-	pool.query('SELECT user_id, password FROM ' + tableName + ' WHERE email = ?', [login], function(err, rows) {
+	pool.query('SELECT id, password FROM ' + tableName + ' WHERE email = ?', [login], function(err, rows) {
 		if (err) throw err;
 		else {
 			if (typeof rows[0] == 'undefined')
@@ -85,7 +82,7 @@ exports.authorization = function(login, password, cb) {
 			else if (password != rows[0].password)
 				cb(exports.err_wrong_password, -1);
 			else
-				cb(null, rows[0].user_id)
+				cb(null, rows[0].id)
 		}
 	});
 };
@@ -93,12 +90,12 @@ exports.authorization = function(login, password, cb) {
 exports.search = function(filter, callback){
     //TODO: please, i need this method =);  callback(err, arrayOfUsers)
     callback(null, [{
-        user_id: 1,
+        id: 1,
         name: "qwerty",
         surname: "petrov",
         email: "qweqweqweqw@kkdkas.sd"
     },{
-        user_id: 2,
+        id: 2,
         name: "wqwqwerty",
         surname: "wqwqpetrov",
         email: "yuioqweqweqweqw@kkdkas.sd"

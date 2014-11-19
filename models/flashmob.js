@@ -1,10 +1,10 @@
 var dbaccess = require('./dbaccess');
-var pool = dbaccess.pool;
 var tableName = dbaccess.prefix + 'flashmobs';
+var membership = require('./membership');
 
 // FIXME: determine which fields are required and which aren't
 var schema = {
-	flashmob_id: {
+	id: {
 		db_type: 'INT',
 		primary_key: true,
 		auto_increment: true
@@ -38,16 +38,37 @@ var schema = {
 	// FIXME: think about other needed fields
 };
 
-exports.findById = dbaccess.findByIdFunction(tableName, 'flashmob_id');
+function Flashmob() {
 
-exports.save = dbaccess.saveFunction(tableName, 'flashmob_id');
+}
+
+Flashmob.prototype.addMember = function(userId, type, cb) {
+	membership.save({
+		user_id: userId,
+		flashmob_id: this.id,
+		membership_type: type
+	}, cb);
+};
+
+Flashmob.prototype.getMembers = function(cb) {
+	membership.find({ flashmob_id: this.id }, cb);
+};
+
+Flashmob.prototype.deleteMember = function(userId, type, cb) {
+	membership.deleteWhere({
+		user_id: userId,
+		membership_type: type,
+		flashmob_id: this.id
+	}, cb);
+};
+
+exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());
+
+exports.save = dbaccess.saveFunction(tableName, 'id');
 
 exports.initTables = function(cb) {
-	pool.query('DROP TABLE ' + tableName, function(err, result) {
-		// Ignore error, it may mean that table exists
-		dbaccess.createTable(tableName, schema, function(err, result){
-			cb(err);
-		});
+	dbaccess.createTable(tableName, schema, function(err, result){
+		cb(err);
 	});
 };
 

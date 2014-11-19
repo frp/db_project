@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var _ = require('lodash');
 exports.pool  = mysql.createPool({
 	connectionLimit: 10,
 	host: process.env.DBP_HOST || 'localhost',
@@ -10,7 +11,7 @@ exports.prefix = 'dbp_';
 
 exports.createTable = function(name, schema, cb) {
 	var query = 'CREATE TABLE ' + name + ' (';
-	var first = true
+	var first = true;
 	for (var field_name in schema)
 		if (schema.hasOwnProperty(field_name)) {
 			var field = schema[field_name];
@@ -20,11 +21,9 @@ exports.createTable = function(name, schema, cb) {
 			if (field.db_type == 'VARCHAR')
 				query += '(' + field.length + ')';
 
-			if (field.db_type == 'ENUM')
-			{
+			if (field.db_type == 'ENUM') {
 				query += '(';
-				for (var value in field.values)
-				{
+				for (var value in field.values) {
 					if (value != 0) query += ',';
 					query += '\'' + field.values[value] + '\'';
 				}
@@ -36,7 +35,11 @@ exports.createTable = function(name, schema, cb) {
 
 			if (field.db_type == 'INT')
 				if (!!field.auto_increment)
-					query += ' AUTO_INCREMENT'
+					query += ' AUTO_INCREMENT';
+
+			if (field.foreign_key)
+				query += ', FOREIGN KEY (' + field_name + ') REFERENCES ' +
+				field.referenceTable + '(' + field.referenceField + ')';
 		}
 	query += ')';
 	exports.pool.query(query, cb)
@@ -46,11 +49,13 @@ exports.insertIntoTable = function(name, object, cb) {
 	var query = "INSERT INTO " + name + " (";
 	var first = true
 	for (var field_name in object) {
-		if (first)
-			first = false;
-		else
-			query += ',';
-		query += field_name;
+		if (typeof(object[field_name]) != 'function') {
+			if (first)
+				first = false;
+			else
+				query += ',';
+			query += field_name;
+		}
 	}
 
 	query += ') VALUES (';
@@ -58,13 +63,15 @@ exports.insertIntoTable = function(name, object, cb) {
 
 	var values = [];
 
-	for (var field_name in object) {
-		if (first)
-			first = false;
-		else
-			query += ', ';
-		query += '?';
-		values.push(object[field_name])
+	for (field_name in object) {
+		if (typeof(object[field_name]) != 'function') {
+			if (first)
+				first = false;
+			else
+				query += ', ';
+			query += '?';
+			values.push(object[field_name])
+		}
 	}
 
 	query += ')';
@@ -75,31 +82,32 @@ exports.insertIntoTable = function(name, object, cb) {
 exports.update = function(name, object, cb) {
 	var query = "UPDATE " + name + " SET ";
 
-	var first = true
-	var values = []
+	var first = true;
+	var values = [];
 	for (var field_name in object) {
-		if (first)
-			first = false;
-		else
-			query += ', ';
-		query += field_name + " = ?";
-		values.push(object[field_name]);
+		if (typeof(object[field_name]) != 'function') {
+			if (first)
+				first = false;
+			else
+				query += ', ';
+			query += field_name + " = ?";
+			values.push(object[field_name]);
+		}
 	}
 
 	exports.pool.query(query, values, cb);
 };
 
 exports.err_record_not_found = -1;
-
-exports.findByIdFunction = function(tableName, idFieldName) {
+exports.findByIdFunction = function(tableName, idFieldName, objectToExtend) {
 	return function(id, cb) {
 		exports.pool.query('SELECT * FROM ' + tableName + ' WHERE ' + idFieldName + ' = ?',
 			[id], function(err, rows) {
-			if (rows.length != 1)
-				cb(exports.err_record_not_found, null);
-			else
-				cb(err, rows[0]);
-		});
+				if (rows.length != 1)
+					cb(exports.err_record_not_found, null);
+				else
+					cb(err, _.assign(objectToExtend, rows[0]));
+			});
 	};
 };
 
@@ -109,5 +117,38 @@ exports.saveFunction = function(tableName, idField) {
 			exports.insertIntoTable(tableName, data, cb);
 		else
 			exports.update(tableName, data, cb)
+	}
+};
+
+// FIXME: Refactor, get rid of this dirty hack
+var tablesToDrop = ['dbp_memberships', 'dbp_users', 'dbp_flashmobs'];
+
+exports.dropAllTables = function(cb) {
+	exports.pool.query('DROP TABLE IF EXISTS ' + tablesToDrop.join(','), cb);
+};
+
+exports.findFunction = function(tableName) {
+	return function(data, cb) {
+		var query = 'SELECT * FROM ' + tableName + ' WHERE ';
+		var first = true;
+		for (var field_name in data) {
+			if (first) first = false;
+			else query += ' AND ';
+			query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
+		}
+		exports.pool.query(query, [], cb)
+	}
+};
+
+exports.deleteWhereFunction = function(tableName) {
+	return function(data, cb) {
+		var query = 'DELETE FROM ' + tableName + ' WHERE ';
+		var first = true;
+		for (var field_name in data) {
+			if (first) first = false;
+			else query += ' AND ';
+			query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
+		}
+		exports.pool.query(query, [], cb)
 	}
 };

@@ -1,30 +1,8 @@
-var user = require('../models/user')
-var dbaccess = require('../models/dbaccess')
+var user = require('../models/user');
+var dbaccess = require('../models/dbaccess');
+var helpers = require('../testhelpers/dbhelpers.js');
 
-function setUpDb(cb) {
-	return function(test) {
-		user.initTables(function(err) {
-			if (err) throw err;
-			cb(test);
-		});
-	}
-}
-
-function setUpUser(cb) {
-	return function(test) {
-		user.save({
-			name: 'User',
-			surname: 'Test',
-			email: 'test@gmail.com',
-			password: 'testpass'
-		}, function (err) {
-			if (err) throw err;
-			cb(test);
-		});
-	}
-}
-
-exports.testUpdating = setUpDb(setUpUser(function(test)	{
+exports.testUpdating = helpers.setUpDb(helpers.setUpUser(function(test)	{
 	user.findById(1, function(err, row) {
 		if (err) throw err;
 		row['name'] = 'Serhiy';
@@ -39,7 +17,7 @@ exports.testUpdating = setUpDb(setUpUser(function(test)	{
 	});
 }));
 
-exports.testAuthorizationOK = setUpDb(setUpUser(function(test){
+exports.testAuthorizationOK = helpers.setUpDb(helpers.setUpUser(function(test){
 	user.authorization('test@gmail.com', 'testpass', function(err, id) {
 		test.equals(id, 1);
 		test.equals(!err, true);
@@ -47,21 +25,21 @@ exports.testAuthorizationOK = setUpDb(setUpUser(function(test){
 	});
 }));
 
-exports.testAuthorizationWrongUser = setUpDb(setUpUser(function(test) {
+exports.testAuthorizationWrongUser = helpers.setUpDb(helpers.setUpUser(function(test) {
 	user.authorization('test2@gmail.com', 'testpass', function(err, id) {
 		test.equals(err, dbaccess.err_record_not_found);
 		test.done();
 	});
 }));
 
-exports.testAuthorizationWrongPassword = setUpDb(setUpUser(function(test) {
+exports.testAuthorizationWrongPassword = helpers.setUpDb(helpers.setUpUser(function(test) {
 	user.authorization('test@gmail.com', 'testvfgfdpass', function(err, id) {
 		test.equals(err, user.err_wrong_password);
 		test.done();
 	});
 }));
 
-exports.testUserNotFound = setUpDb(function(test) {
+exports.testUserNotFound = helpers.setUpDb(function(test) {
 	user.findById(5, function(err, data) {
 		test.equals(data, null);
 		test.equals(err, dbaccess.err_record_not_found);

@@ -14,10 +14,10 @@ exports.get = function(req, req, next){
 exports.post = function(req, res, next){
     //TODO: do something, please
     var flash = req.body
-    flash.flashmob_id = req.param.id;
+    flash.id = req.param.id;
 
     Flash.save(user, function(err){
         if(err) res.send("Error save")
-        else res.redirect("/flashmobs/"+flash.flashmob_id+"/setings")
+        else res.redirect("/flashmobs/"+flash.id+"/setings")
     })
 }
