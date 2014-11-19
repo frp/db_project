@@ -1,33 +1,105 @@
 .header{
-    width: 700px;
-    height: 100px;
-    margin: 0 auto;
+    background-color: gray;
+    height: 130px;
+    width: 100%;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
 }
-.emblem {
-    width: 500px;
-    height: 100px;
-    background-color: red;
+.sidebar{
     float: left;
+    width:15%;
+    text-align: left;
+    margin-right:0.5%;
+    text-indent:15px;
+    height:100px;
 }
-.body{
-    width: 700px;
-    margin: 0 auto;
+.content{
+    min-height:1000px;
 }
-.navigation{
-    float: left;
-    width: 200px;
-    height: 500px;
-    background-color: green;
+
+.menu {
+    font-size:20px;
+    width:100%;
+    border-collapse:collapse;
 }
-.page{
-    float: right;
-    width: 500px;
-    height: 500px;
-    background-color: yellow;
+
+.menu td{
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    border-top:none;
 }
-.login{
-    background-color: blue;
-    height: 100px;
-    width: 200px;
-    float: left;
+.maincont{
+    float:right;
+    width:84.3%;
+    min-height:800px;
+    border-left: 1px solid gray;
+}
+.footer{
+    clear:both;
+    float:center;
+    width:100%;
+    background-color:purple;
+    text-align:center;
+    height:50px;
+}
+
+.flash-list{
+    width:100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.flash-list td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.welcome{
+    font-size: 60px;
+    font-family: Times new Roman;
+    text-align: center;
+    width: 100%;
+    padding-top:30px;
+    float:left;
+}
+.loginzone{
+    float:left;
+    position:relative;
+    left:80%;
+    top:-45%;
+}
+.title{
+    text-indent:30%;
+    font-size: 30px;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    width:100%;
+}
+.kartinka img{
+    padding-left:15%;
+    width:70%
+}
+.mainpText{
+    text-align:center;
+    font-size:24px;
+}
+.registr{
+    height:100%;
+    width:90%;
+    border-collapse:collapse;
+    margin-left:20px;
+    table-layout:fixed;
+}
+.registr td{
+    padding-top:30px;
+    padding-left:5px;
+    width:350px;
+}
+.podch td{
+    border-bottom: 1px solid gray;
+    font-style: italic;
 }

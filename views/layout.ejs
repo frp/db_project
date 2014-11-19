@@ -5,29 +5,28 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 </head>
 <body>
-
-<header class = "header">
-    <div class="emblem">FLASHMOBS</div>
-    <div class="login">
-        <form id="forma1" method="post">
-            Login: <input type="text" name="login" id="username">
-            Password: <input type="password" name="password" id="password">
-            <input type="submit" id="submit" value="Sign in">
-        </form>
-    </div>
-</header>
-
-<div class = "body">
-    <div class="navigation">
-        <ul>
-            <li><a href=<%"/users/"+userId%>> Page </a></li>
-            <li>Invations</li>
-            <li>Flashmobs</li>
-            <li>Message</li>
-            <li>Settings</li>
-        </ul>
-    </div>
-    <div class="page">
-    <%-body %>
+<div class="header">
+    <div class="welcome">ФЛЕШМОБИ УКРАЇНИ</div>
+    <div class="loginzone">
+        Вітаємо, User<br><br>
+        Вихід &nbsp&nbsp| &nbsp&nbsp<a href="profile.html">Профіль</a>
     </div>
 </div>
+<div class="content">
+    <%-body %>
+    <div class="sidebar">
+        <table class="menu">
+            <tr><td><a href="mainpage.html">Головна</a></td></tr>
+            <tr><td><a href="profile.html">Минулі події</a></td></tr>
+            <tr><td><a href="MyProfile.html">Заплановані події</a></td></tr>
+            <tr><td><a href="MyProfile.html">Мої флешмоби</a></td></tr>
+            <tr><td><a href="MyProfile.html">Мої запрошення</a></td></tr>
+            <tr><td><a href="MyProfile.html">Мої повідомлення</a></td></tr>
+        </table>
+    </div>
+    <div class="footer">
+        footer nah
+    </div>
+</div>
+</body>
+</html>
