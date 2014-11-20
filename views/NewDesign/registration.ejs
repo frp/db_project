@@ -1,0 +1,121 @@
+
+		<!-- MAIN -->
+		<div id="main">
+
+			<!-- HEADER -->
+			<div id="header">
+				<div id="page-title">Реєстрація</div>
+				<!-- Breadcrumb-->
+				<div id="breadcrumbs">
+					Ви тут: 
+					<a title="Home" href="#">Головна</a> &raquo; 
+					<a title="Features" href="#">Реєстрація</a>
+				</div>
+				<!-- ENDS Breadcrumb-->	
+			</div>
+			<!-- ENDS HEADER -->
+			
+			<!-- CONTENT -->
+			<div id="content">
+						
+				<!-- PAGE CONTENT -->
+				<div id="page-content">
+				<!-- form -->
+				<h1>Форма реєстрації</h1>
+				<script type="text/javascript" src="js/form-validation.js"></script>
+				<form id="regForm" action="#" method="post">
+					<fieldset>
+						<br>
+						<div>
+							<label>Login</label>
+							<input name="login"  id="login" type="text" class="form-poshytip" title="Введіть свій логін" />
+						</div>
+						<div>
+							<label>Пароль</label>
+							<input name="password1"  id="password1" type="password" class="form-poshytip" title="Введіть свій пароль" />
+						</div>
+						<div>
+							<label>Повтор пароля</label>
+							<input name="password2"  id="password2" type="password" class="form-poshytip" title="Повторіть свій пароль" />
+						</div>
+						<div>
+						<br><br><i>Особисті дані</i>
+						</div>
+						<hr>
+						<div>
+							<label>Ім'я</label>
+							<input name="name"  id="name" type="text" class="form-poshytip" title="Введіть своє ім'я" />
+						</div>
+						<div>
+							<label>Прізвище</label>
+							<input name="surname"  id="surname" type="text" class="form-poshytip" title="Введіть своє прізвище" />
+						</div>
+						<div>
+							<label>Дата народження</label>
+							<input name="birthDate"  id="birthDate" type="date" class="form-poshytip" title="Введіть свою дату народження" />
+						</div>
+						<div>
+							<label>Стать</label>
+							<input name="sex"  class="noposhy" type="radio"/>Чоловік <input name="sex"  class="noposhy" type="radio"/>Жінка
+						</div>
+						<div>
+							<label>Місце проживання</label>
+							<input name="location"  id="location" type="text" class="form-poshytip" title="Введіть своє місце проживання"/>
+						</div>
+						<br>
+						<div>
+							<label>Мої захоплення</label>
+							<textarea name="interests"  id="interests" rows="5" cols="20"/></textarea>
+						</div>
+						<div>
+						<br><br><i>Контактні дані</i>
+						</div>
+						<hr>
+						<div>
+							<label>Email</label>
+							<input name="email"  id="email" type="text"/> <input type="checkbox" name="hideEmail" class="noposhy" checked>Приховати від інших користувачів
+						</div>
+						<div>
+							<label>Телефон</label>
+							<input name="phoneNumber"  id="phoneNumber" type="text"/> <input type="checkbox" name="hidePhoneNumber" class="noposhy" checked>Приховати від інших користувачів
+						</div>
+						<div>
+							<label>Skype</label>
+							<input name="skype"  id="skype" type="text"/> <input type="checkbox" name="hideSkype" class="noposhy" checked>Приховати від інших користувачів
+						</div>
+						<div>
+							<label>Інше</label>
+							<input name="otherContacts"  id="otherContacts" type="text"/> <input type="checkbox" name="hideOtherContats"class="noposhy" checked>Приховати від інших користувачів
+						</div>
+						<br>
+						<hr>
+						<br>
+						<div>
+							<input type="checkbox" name="rulesAccept" class="noposhy">Прочитав і згоден з правилами користування
+						</div>
+						<br>
+						<hr>
+						<br>
+						<div id="captchaImage">
+							<img src="img/dummies/114x86.jpg">
+						</div>
+						<div>
+							<label>Введіть символи з зображення</label>
+							<input name="captcha"  id="captcha" type="text"/>
+						</div>
+						<br><br>
+						<p><input type="button" value="Зареєструватися" name="submit" id="submit" /></p>
+					</fieldset>
+					<p id="error" class="warning">Message</p>
+				</form>
+				<p id="success" class="success">Дякуємо за регістрацію.</p>
+				<!-- ENDS form -->	
+					
+				</div>
+				<!-- ENDS PAGE-CONTENT -->
+			
+			</div>
+			<!-- ENDS CONTENT -->
+			
+		</div>
+		<!-- ENDS MAIN -->
