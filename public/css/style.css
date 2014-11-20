@@ -35,11 +35,11 @@ body {}
 }
 
 h1.header-line,
- h2.header-line,
- h3.header-line,
- h4.header-line,
- h5.header-line,
- h6.header-line{
+h2.header-line,
+h3.header-line,
+h4.header-line,
+h5.header-line,
+h6.header-line{
 	padding-bottom: 21px;
 	margin-bottom: 11px;
 	background: url(../img/line-divider.png) repeat-x bottom center;
@@ -114,7 +114,7 @@ h1.header-line,
 }
 
 #sidebar #searchform #searchsubmit{
-	position: absolute; 
+	position: absolute;
 	top: 25px;
 	left: 195px;
 	width: 34px;
@@ -127,26 +127,26 @@ h1.header-line,
 	background-position: 0px -26px;
 }
 .login {
- width: 229px;
- height: 26px;
- padding: 0px 10px;
- margin: 5px;
- border: 0;
- background: url(../img/search-bg.png) no-repeat transparent 0px 0px;
- color:gray;
+	width: 229px;
+	height: 26px;
+	padding: 0px 10px;
+	margin: 5px;
+	border: 0;
+	background: url(../img/search-bg.png) no-repeat transparent 0px 0px;
+	color:gray;
 }
 .login_manage {
- height: 26px;
- padding: 0px 10px;
- margin: 5px;
- border: 0;
+	height: 26px;
+	padding: 0px 10px;
+	margin: 5px;
+	border: 0;
 }
 
 /* NAVIGATION ------------------------------------------------------------*/
 
 #sidebar #nav{
 	display: block;
-	margin-left: 15px;	
+	margin-left: 15px;
 	margin-right: 36px;
 	padding-top: 15px;
 	margin-bottom: 10px;
@@ -162,7 +162,7 @@ h1.header-line,
 
 #sidebar #nav>li:first-child{ border-top: none; }
 
-#sidebar #nav>li:last-child{ border-bottom: none; }	
+#sidebar #nav>li:last-child{ border-bottom: none; }
 
 #sidebar #nav>li ul{
 	padding-left: 20px;
@@ -172,7 +172,7 @@ h1.header-line,
 #sidebar #nav>li>ul li{
 	display: block;
 	background: none;
-	
+
 	border-bottom: 1px solid #000000;
 	border-top: 1px solid #2e2d2d;
 }
@@ -199,7 +199,7 @@ h1.header-line,
 	overflow: hidden;
 	padding-top: 25px;
 	margin-bottom: 20px;
-	
+
 	list-style-type: none;
 	margin-left: 15px;
 	margin-right: 36px;
@@ -263,13 +263,13 @@ h1.header-line,
 #header #page-title{
 	position: absolute;
 	top: 32px;
-	left: 60px;	
+	left: 60px;
 }
 
 #header #breadcrumbs{
 	position: absolute;
 	top: 62px;
-	left: 60px;	
+	left: 60px;
 }
 
 /* CONTENT ------------------------------------------------------------*/
@@ -294,14 +294,14 @@ h1.header-line,
 
 .post h1{ margin-bottom: 5px; }
 
-.post .meta{ 
-	display: block; 
+.post .meta{
+	display: block;
 	overflow: hidden;
-	margin-bottom: 13px; 
+	margin-bottom: 13px;
 }
 
-.post.portfolio .meta{ 
-	margin-bottom: 0px; 
+.post.portfolio .meta{
+	margin-bottom: 0px;
 }
 
 .post .meta li{
@@ -316,8 +316,8 @@ h1.header-line,
 	padding: 5px;
 	margin-bottom: 21px;
 	background: #fff;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0 0 3px #000;
 }
 
@@ -346,8 +346,8 @@ h1.header-line,
 	padding: 5px;
 	margin-bottom: 10px;
 	background: #fff;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0px 0px 3px #999;
 }
 
@@ -440,8 +440,8 @@ h1.header-line,
 	background: #fff;
 	padding: 15px;
 	margin-bottom: 15px;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0px 0px 3px #999;
 }
 
@@ -465,7 +465,7 @@ h1.header-line,
 
 .related-projects-list .right-content{
 	float: left;
-	width: 430px;	
+	width: 430px;
 }
 
 /* CONTACT ------------------------------------------------------------*/
@@ -476,8 +476,8 @@ h1.header-line,
 	padding: 5px;
 	margin-bottom: 21px;
 	background: #fff;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0px 0px 3px #999;
 }
 
@@ -606,8 +606,8 @@ h1.header-line,
 	background: #fff;
 	width: 272px;
 	padding: 5px;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0px 0px 3px #999;
 	margin-bottom: 20px;
 	line-height: 1em;
@@ -640,8 +640,8 @@ h1.header-line,
 	width: 114px;
 	margin-bottom: 5px;
 	padding: 5px;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0px 0px 3px #999;
 	line-height: 1em;
 }
@@ -673,8 +673,8 @@ h1.header-line,
 	background: #fff;
 	margin: 0px 6px 12px 6px;
 	padding: 5px;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0px 0px 3px #999;
 	line-height: 0em;
 }
@@ -700,8 +700,8 @@ h1.header-line,
 	width: 272px;
 	height: 250px;
 	padding: 5px;
-	-webkit-box-shadow: 0px 0px 3px #999;     
-	-moz-box-shadow: 0px 0px 3px #999;  
+	-webkit-box-shadow: 0px 0px 3px #999;
+	-moz-box-shadow: 0px 0px 3px #999;
 	box-shadow: 0px 0px 3px #999;
 }
 
@@ -874,11 +874,11 @@ h1.header-line,
 
 #footer-cols li.col ul li:first-child{ border-top: none; }
 
-#footer-cols li.col ul li:last-child{ border-bottom: none; }	
+#footer-cols li.col ul li:last-child{ border-bottom: none; }
 
 /* FOOTER-BOTTOM ------------------------------------------------------------*/
 
-#footer-bottom{ 
+#footer-bottom{
 	margin-left: 15px;
 	overflow: hidden;
 }
@@ -894,6 +894,3 @@ h1.header-line,
 	padding-right: 20px;
 	cursor: pointer;
 }
-
-
-

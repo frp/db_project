@@ -20,7 +20,7 @@ h5.toggle-trigger a {
 }
 
 h5.accordion-trigger a:hover,
-h5.toggle-trigger a:hover { 
+h5.toggle-trigger a:hover {
 	color: #999;
 }
 
@@ -34,7 +34,7 @@ div.toggle-container {
 
 div.accordion-container .block,
 div.toggle-container .block {
-	padding: 10px; 
+	padding: 10px;
 }
 
 div.accordion-container .block ,
@@ -109,7 +109,7 @@ div.toggle-container .block p{
 	padding:2px 5px;
 }
 
-.highlight-red{ 
+.highlight-red{
 	background: red;
 	color:#fff;
 }
@@ -177,11 +177,11 @@ a.link-button-dark span{
 }
 
 a.link-button:hover{ background: url(../img/link-button-over.png) no-repeat; }
-	
+
 a.link-button:hover span{ background: url(../img/link-button-over.png) no-repeat bottom right; }
 
 a.link-button-dark:hover{ background: url(../img/link-button-dark-over.png) no-repeat; }
-	
+
 a.link-button-dark:hover span{ background: url(../img/link-button-dark-over.png) no-repeat bottom right; }
 
 /* TABLE ------------------------------------------------------------*/
@@ -206,11 +206,8 @@ th{
 }
 
 td{
+	width:90px;
 	padding:10px;
-}
-
-td, th{
-
 }
 
 /* TAGS ------------------------------------------------------------*/
@@ -227,7 +224,7 @@ td, th{
 	margin-right: 10px;
 	margin-bottom: 10px;
 	background: url(../img/tag.png) no-repeat top left;
-	border-right: 1px solid #cc912d;	
+	border-right: 1px solid #cc912d;
 }
 
 .tags li:first-child{
@@ -238,7 +235,7 @@ td, th{
 .tags li a{
 	display: block;
 	height: 100%
-	width: 100%;
+width: 100%;
 	margin-left: 20px;
 	margin-right: 10px;
 }
