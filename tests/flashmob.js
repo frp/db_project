@@ -23,9 +23,9 @@ describe('Flashmob', function() {
     });
 
     describe('Operations on existing flashmobs', function() {
-        beforeEach(helpers.setUpFlashmob(function(done) {
+        beforeEach(helpers.setUpUser(helpers.setUpFlashmob(function(done) {
             done();
-        }));
+        })));
 
         it('should support updating', function(done) {
             flashmob.findById(1, function(err, row) {
@@ -42,40 +42,34 @@ describe('Flashmob', function() {
             });
         });
 
-        describe('Operations related to users', function() {
-            beforeEach(helpers.setUpUser(function(done) {
-                done();
-            }));
-
-            it ('should support adding members', function(done) {
-                flashmob.findById(1, function(err, data) {
-                    data.addMember(1, 'admin', function(err) {
+        it ('should support adding members', function(done) {
+            flashmob.findById(1, function(err, data) {
+                data.addMember(1, 'admin', function(err) {
+                    if (err) throw err;
+                    flashmob.findById(1, function(err, data) {
                         if (err) throw err;
-                        flashmob.findById(1, function(err, data) {
+                        data.getMembers(function(err, data) {
                             if (err) throw err;
-                            data.getMembers(function(err, data) {
-                                if (err) throw err;
-                                data.length.should.be.equal(1);
-                                done();
-                            });
+                            data.length.should.be.equal(1);
+                            done();
                         });
                     });
                 });
             });
+        });
 
-            it ('should support deleting members', function(done) {
-                flashmob.findById(1, function(err, data) {
-                    data.addMember(1, 'admin', function(err) {
+        it ('should support deleting members', function(done) {
+            flashmob.findById(1, function(err, data) {
+                data.addMember(1, 'admin', function(err) {
+                    if (err) throw err;
+                    flashmob.findById(1, function(err, data) {
                         if (err) throw err;
-                        flashmob.findById(1, function(err, data) {
+                        data.deleteMember(1, 'admin', function(err) {
                             if (err) throw err;
-                            data.deleteMember(1, 'admin', function(err) {
+                            data.getMembers(function(err, data) {
                                 if (err) throw err;
-                                data.getMembers(function(err, data) {
-                                    if (err) throw err;
-                                    data.length.should.be.equal(0);
-                                    done();
-                                });
+                                data.length.should.be.equal(0);
+                                done();
                             });
                         });
                     });

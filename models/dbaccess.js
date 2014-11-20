@@ -134,7 +134,7 @@ exports.saveFunction = function(tableName, schema, idField) {
 };
 
 // FIXME: Refactor, get rid of this dirty hack
-var tablesToDrop = ['dbp_memberships', 'dbp_users', 'dbp_flashmobs'];
+var tablesToDrop = ['dbp_memberships', 'dbp_flashmobs', 'dbp_users'];
 
 exports.dropAllTables = function(cb) {
 	exports.pool.query('DROP TABLE IF EXISTS ' + tablesToDrop.join(','), cb);

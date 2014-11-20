@@ -9,6 +9,13 @@ var schema = {
 		primary_key: true,
 		auto_increment: true
 	},
+	organizer: {
+		db_type: 'INT',
+		foreign_key: true,
+		referenceTable: dbaccess.prefix + 'users',
+		referenceField: 'id',
+		required: true
+	},
 	title: {
 		db_type: 'VARCHAR',
 		required: true,
