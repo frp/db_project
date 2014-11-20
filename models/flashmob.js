@@ -41,6 +41,21 @@ var schema = {
 		values: ['active', 'finished', 'cancelled' ],
 		required: true
 	},
+	editing_rights: {
+		db_type: 'ENUM',
+		values: ['organizer', 'main_moderators', 'moderators'],
+		required: true
+	},
+	documents_rights: {
+		db_type: 'ENUM',
+		values: ['organizer', 'main_moderators', 'moderators', 'members'],
+		required: true
+	},
+	invitation_rights: {
+		db_type: 'ENUM',
+		values: ['organizer', 'main_moderators', 'moderators', 'members'],
+		required: true
+	},
 	main_image: {
 		db_type: 'VARCHAR',
 		length: 255

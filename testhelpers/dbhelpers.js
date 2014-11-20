@@ -58,7 +58,10 @@ exports.setUpFlashmob = function(cb) {
             end_datetime: new Date(2014, 1, 2),
             type: 'open',
             status: 'active',
-            organizer: 1
+            organizer: 1,
+            editing_rights: 'organizer',
+            invitation_rights: 'organizer',
+            documents_rights: 'organizer'
         }, function (err) {
             if (err) throw err;
             cb(test);
