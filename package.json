@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "node ./node_modules/nodeunit/bin/nodeunit ./tests/"
+    "test": "node ./node_modules/.bin/mocha ./tests/"
   },
   "dependencies": {
     "express": "~3.4.8",
@@ -14,9 +14,11 @@
     "body-parser": "~1.0.0",
     "debug": "~0.7.4",
     "ejs": "~0.8.5",
-    "mysql": "~2.5.1",
     "express-validator": "~2.6.0",
     "ejs-locals": "~1.0.2",
-    "nodeunit": "~0.9.0"
+    "lodash": "~2.4.1",
+    "mysql2": "~0.13.0",
+    "mocha": "~2.0.1",
+    "should": "~4.3.0"
   }
 }

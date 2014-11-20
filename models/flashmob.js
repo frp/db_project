@@ -1,53 +1,97 @@
 var dbaccess = require('./dbaccess');
-var pool = dbaccess.pool;
 var tableName = dbaccess.prefix + 'flashmobs';
+var membership = require('./membership');
+var _ = require('lodash');
+var stage = require('./stage');
 
 // FIXME: determine which fields are required and which aren't
 var schema = {
-	flashmob_id: {
+	id: {
 		db_type: 'INT',
 		primary_key: true,
 		auto_increment: true
 	},
+	organizer: {
+		db_type: 'INT',
+		foreign_key: true,
+		referenceTable: dbaccess.prefix + 'users',
+		referenceField: 'id',
+		required: true
+	},
 	title: {
+		db_type: 'VARCHAR',
+		required: true,
+		length: 255
+	},
+	start_datetime: {
+		db_type: 'DATETIME',
+		required: true
+	},
+	end_datetime: {
+		db_type: 'DATETIME',
+		required: true
+	},
+	type: {
+		db_type: 'ENUM',
+		values: ['open', 'semiopen', 'closed'],
+		required: true
+	},
+	status: {
+		db_type: 'ENUM',
+		values: ['active', 'finished', 'cancelled' ],
+		required: true
+	},
+	main_image: {
 		db_type: 'VARCHAR',
 		length: 255
 	},
-	// FIXME: rethink this field's type and usage
-	status: {
-		db_type: 'VARCHAR',
-		length: 50
-	},
-	// FIXME: rethink this field's usage
-	place: {
-		db_type: 'VARCHAR',
-		length: 100
-	},
-	// FIXME: maybe it should be datetime?
-	date: {
-		db_type: 'DATE'
-	},
-	description: {
+	short_description: {
 		db_type: 'TEXT'
 	},
-	// FIXME: rethink this field's type and usage
-	type: {
-		db_type: 'VARCHAR',
-		length: 100
+	full_description: {
+		db_type: 'TEXT'
 	}
-	// FIXME: think about other needed fields
 };
 
-exports.findById = dbaccess.findByIdFunction(tableName, 'flashmob_id');
+function Flashmob() {
 
-exports.save = dbaccess.saveFunction(tableName, 'flashmob_id');
+}
+
+Flashmob.prototype.addMember = function(userId, type, cb) {
+	membership.save({
+		user_id: userId,
+		flashmob_id: this.id,
+		membership_type: type
+	}, cb);
+};
+
+Flashmob.prototype.getMembers = function(cb) {
+	membership.find({ flashmob_id: this.id }, cb);
+};
+
+Flashmob.prototype.deleteMember = function(userId, type, cb) {
+	membership.deleteWhere({
+		user_id: userId,
+		membership_type: type,
+		flashmob_id: this.id
+	}, cb);
+};
+
+Flashmob.prototype.addStage = function(stageData, cb) {
+	stage.save(_.assign({flashmob_id: this.id}, stageData), cb);
+};
+
+Flashmob.prototype.getStages = function(cb) {
+	stage.find( {flashmob_id: this.id }, cb);
+};
+
+exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());
+
+exports.save = dbaccess.saveFunction(tableName, schema, 'id');
 
 exports.initTables = function(cb) {
-	pool.query('DROP TABLE ' + tableName, function(err, result) {
-		// Ignore error, it may mean that table exists
-		dbaccess.createTable(tableName, schema, function(err, result){
-			cb(err);
-		});
+	dbaccess.createTable(tableName, schema, function(err){
+		cb(err);
 	});
 };
 
