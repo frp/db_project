@@ -42,6 +42,9 @@ var schema = {
 		length: 70,
 		required: true
 	},
+	birthDate: {
+		db_type: 'DATE'
+	},
 	phone: {
 		db_type: 'VARCHAR',
 		length: 20
