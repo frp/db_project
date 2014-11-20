@@ -4,7 +4,10 @@
 var Users = require("../models/user")
 
 module.exports.get = function(req, res, next){
-    res.render("home");
+    if(req.session.userId)
+        res.redirect("/users/"+res.session.userId)
+    else
+        res.render("home");
 }
 module.exports.post = function(req, res, next){
 
@@ -20,7 +23,7 @@ module.exports.post = function(req, res, next){
         //TODO: authorisation doesn't work with empty login and password
 
         Users.authorization(req.body.login, req.body.password, function (err, userId) {
-            if (err) res.render("/home")
+            if (err) res.render("home")
             else {
                 req.session.userId = userId;
                 res.redirect("/users/" + userId);

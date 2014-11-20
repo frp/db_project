@@ -3,6 +3,7 @@ var tableName = dbaccess.prefix + 'flashmobs';
 var membership = require('./membership');
 var _ = require('lodash');
 var stage = require('./stage');
+var comment = require('./comment');
 
 // FIXME: determine which fields are required and which aren't
 var schema = {
@@ -39,6 +40,21 @@ var schema = {
 	status: {
 		db_type: 'ENUM',
 		values: ['active', 'finished', 'cancelled' ],
+		required: true
+	},
+	editing_rights: {
+		db_type: 'ENUM',
+		values: ['organizer', 'main_moderators', 'moderators'],
+		required: true
+	},
+	documents_rights: {
+		db_type: 'ENUM',
+		values: ['organizer', 'main_moderators', 'moderators', 'members'],
+		required: true
+	},
+	invitation_rights: {
+		db_type: 'ENUM',
+		values: ['organizer', 'main_moderators', 'moderators', 'members'],
 		required: true
 	},
 	main_image: {
@@ -83,6 +99,14 @@ Flashmob.prototype.addStage = function(stageData, cb) {
 
 Flashmob.prototype.getStages = function(cb) {
 	stage.find( {flashmob_id: this.id }, cb);
+};
+
+Flashmob.prototype.addComment = function(data, cb) {
+	comment.save(_.assign({flashmob_id: this.id}, data), cb);
+};
+
+Flashmob.prototype.getComments = function(cb) {
+	comment.find({flashmob_id: this.id}, cb);
 };
 
 exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());

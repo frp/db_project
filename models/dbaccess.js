@@ -25,7 +25,7 @@ exports.createTable = function(name, schema, cb) {
 				query += '(' + mysql.escape(field.values) +')';
 			}
 
-			if (!!field.required)
+			if (!!field.required || !!field.notNull)
 				query += ' NOT NULL';
 
 			if (!!field.primary_key)
@@ -40,16 +40,21 @@ exports.createTable = function(name, schema, cb) {
 				field.referenceTable + '(' + field.referenceField + ')';
 		}
 	query += ')';
-	exports.pool.query(query, cb)
+	exports.pool.query(query, cb);
 };
 
 exports.err_validation_failed = -3;
 
 exports.validate = function(object, schema) {
 	for (var field_name in schema)
-		if (schema.hasOwnProperty(field_name))
+		if (schema.hasOwnProperty(field_name)) {
 			if (!!schema[field_name].required && typeof(object[field_name]) == 'undefined')
 				return false;
+			if (schema[field_name].db_type == 'ENUM' && !!object[field_name] &&
+				schema[field_name].values.indexOf(object[field_name]) == -1) {
+				return false;
+			}
+		}
 	return true;
 };
 
@@ -78,15 +83,14 @@ exports.insertIntoTable = function(name, object, schema, cb) {
 				else
 					query += ', ';
 				query += '?';
-				values.push(object[field_name])
+				values.push(object[field_name]);
 			}
 		}
 
 		query += ')';
-
 		exports.pool.query(query, values, cb);
 	}
-	else cb(exports.err_validation_failed)
+	else cb(exports.err_validation_failed);
 };
 
 exports.update = function(name, object, schema, cb) {
@@ -129,12 +133,12 @@ exports.saveFunction = function(tableName, schema, idField) {
 		if (typeof data[idField] == 'undefined')
 			exports.insertIntoTable(tableName, data, schema, cb);
 		else
-			exports.update(tableName, data, schema, cb)
-	}
+			exports.update(tableName, data, schema, cb);
+	};
 };
 
 // FIXME: Refactor, get rid of this dirty hack
-var tablesToDrop = ['dbp_memberships', 'dbp_stages', 'dbp_flashmobs', 'dbp_users'];
+var tablesToDrop = ['dbp_memberships', 'dbp_stages', 'dbp_comments', 'dbp_flashmobs', 'dbp_users'];
 
 exports.dropAllTables = function(cb) {
 	exports.pool.query('DROP TABLE IF EXISTS ' + tablesToDrop.join(','), cb);
@@ -151,8 +155,8 @@ exports.findFunction = function(tableName) {
 				query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
 			}
 		}
-		exports.pool.query(query, [], cb)
-	}
+		exports.pool.query(query, [], cb);
+	};
 };
 
 exports.deleteWhereFunction = function(tableName) {
@@ -166,6 +170,6 @@ exports.deleteWhereFunction = function(tableName) {
 				query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
 			}
 		}
-		exports.pool.query(query, [], cb)
-	}
+		exports.pool.query(query, [], cb);
+	};
 };
