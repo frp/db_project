@@ -44,7 +44,7 @@ describe('Flashmob', function() {
 
         it ('should support adding members', function(done) {
             flashmob.findById(1, function(err, data) {
-                data.addMember(1, 'admin', function(err) {
+                data.addMember(1, 'member', function(err) {
                     if (err) throw err;
                     flashmob.findById(1, function(err, data) {
                         if (err) throw err;
@@ -58,13 +58,22 @@ describe('Flashmob', function() {
             });
         });
 
+        it ('should return error in case of wrong membership type', function (done) {
+            flashmob.findById(1, function(err, data) {
+                data.addMember(1, 'wrong', function(err) {
+                    err.should.be.ok;
+                    done();
+                });
+            });
+        });
+
         it ('should support deleting members', function(done) {
             flashmob.findById(1, function(err, data) {
-                data.addMember(1, 'admin', function(err) {
+                data.addMember(1, 'member', function(err) {
                     if (err) throw err;
                     flashmob.findById(1, function(err, data) {
                         if (err) throw err;
-                        data.deleteMember(1, 'admin', function(err) {
+                        data.deleteMember(1, 'member', function(err) {
                             if (err) throw err;
                             data.getMembers(function(err, data) {
                                 if (err) throw err;

@@ -47,9 +47,14 @@ exports.err_validation_failed = -3;
 
 exports.validate = function(object, schema) {
 	for (var field_name in schema)
-		if (schema.hasOwnProperty(field_name))
+		if (schema.hasOwnProperty(field_name)) {
 			if (!!schema[field_name].required && typeof(object[field_name]) == 'undefined')
 				return false;
+			if (schema[field_name].db_type == 'ENUM' && !!object[field_name]
+				&& schema[field_name].values.indexOf(object[field_name]) == -1) {
+				return false;
+			}
+		}
 	return true;
 };
 
@@ -83,7 +88,6 @@ exports.insertIntoTable = function(name, object, schema, cb) {
 		}
 
 		query += ')';
-
 		exports.pool.query(query, values, cb);
 	}
 	else cb(exports.err_validation_failed)
