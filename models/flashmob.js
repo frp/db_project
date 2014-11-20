@@ -11,31 +11,37 @@ var schema = {
 	},
 	title: {
 		db_type: 'VARCHAR',
+		required: true,
 		length: 255
 	},
-	// FIXME: rethink this field's type and usage
+	start_datetime: {
+		db_type: 'DATETIME',
+		required: true
+	},
+	end_datetime: {
+		db_type: 'DATETIME',
+		required: true
+	},
+	type: {
+		db_type: 'ENUM',
+		values: ['open', 'semiopen', 'closed'],
+		required: true
+	},
 	status: {
+		db_type: 'ENUM',
+		values: ['active', 'finished', 'cancelled' ],
+		required: true
+	},
+	main_image: {
 		db_type: 'VARCHAR',
-		length: 50
+		length: 255
 	},
-	// FIXME: rethink this field's usage
-	place: {
-		db_type: 'VARCHAR',
-		length: 100
-	},
-	// FIXME: maybe it should be datetime?
-	date: {
-		db_type: 'DATE'
-	},
-	description: {
+	short_description: {
 		db_type: 'TEXT'
 	},
-	// FIXME: rethink this field's type and usage
-	type: {
-		db_type: 'VARCHAR',
-		length: 100
+	full_description: {
+		db_type: 'TEXT'
 	}
-	// FIXME: think about other needed fields
 };
 
 function Flashmob() {

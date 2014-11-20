@@ -42,7 +42,11 @@ exports.setUpDb = function (cb) {
 exports.setUpFlashmob = function(cb) {
     return function(test) {
         flashmob.save({
-            title: 'My first flashmob'
+            title: 'My first flashmob',
+            start_datetime: new Date(2014, 1, 1),
+            end_datetime: new Date(2014, 1, 2),
+            type: 'open',
+            status: 'active'
         }, function (err) {
             if (err) throw err;
             cb(test);

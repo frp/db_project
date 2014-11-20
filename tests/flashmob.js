@@ -15,6 +15,13 @@ describe('Flashmob', function() {
         });
     });
 
+    it('should enforce required fields', function(done) {
+        flashmob.save({title: 'New flashmob'}, function(err) {
+            err.should.be.equal(dbaccess.err_validation_failed);
+            done();
+        })
+    });
+
     describe('Operations on existing flashmobs', function() {
         beforeEach(helpers.setUpFlashmob(function(done) {
             done();
