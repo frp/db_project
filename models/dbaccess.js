@@ -25,7 +25,7 @@ exports.createTable = function(name, schema, cb) {
 				query += '(' + mysql.escape(field.values) +')';
 			}
 
-			if (!!field.required)
+			if (!!field.required || !!field.notNull)
 				query += ' NOT NULL';
 
 			if (!!field.primary_key)
@@ -134,7 +134,7 @@ exports.saveFunction = function(tableName, schema, idField) {
 };
 
 // FIXME: Refactor, get rid of this dirty hack
-var tablesToDrop = ['dbp_memberships', 'dbp_stages', 'dbp_flashmobs', 'dbp_users'];
+var tablesToDrop = ['dbp_memberships', 'dbp_stages', 'dbp_comments', 'dbp_flashmobs', 'dbp_users'];
 
 exports.dropAllTables = function(cb) {
 	exports.pool.query('DROP TABLE IF EXISTS ' + tablesToDrop.join(','), cb);
