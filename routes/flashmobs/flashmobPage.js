@@ -5,8 +5,7 @@ exports.get = function(req, res, next){
     Flashmob.findById(flashmobId, function(err, flashmob){
         if(err) res.send("not found")
         else{
-            //TODO: is user admin?
-            var admin = true
+            var admin = (flashmob.organizer==req.session.id)
 
             res.render("flashmobPage", {
                 flashmob :flashmob,
