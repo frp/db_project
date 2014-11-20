@@ -67,7 +67,7 @@ exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());
 exports.save = dbaccess.saveFunction(tableName, schema, 'id');
 
 exports.initTables = function(cb) {
-	dbaccess.createTable(tableName, schema, function(err, result){
+	dbaccess.createTable(tableName, schema, function(err){
 		cb(err);
 	});
 };

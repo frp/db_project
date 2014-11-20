@@ -22,12 +22,7 @@ exports.createTable = function(name, schema, cb) {
 				query += '(' + field.length + ')';
 
 			if (field.db_type == 'ENUM') {
-				query += '(';
-				for (var value in field.values) {
-					if (value != 0) query += ',';
-					query += '\'' + field.values[value] + '\'';
-				}
-				query += ')'
+				query += '(' + mysql.escape(field.values) +')';
 			}
 
 			if (!!field.required)
@@ -52,24 +47,24 @@ exports.err_validation_failed = -3;
 
 exports.validate = function(object, schema) {
 	for (var field_name in schema)
-		if (!!schema[field_name].required && typeof(object[field_name]) == 'undefined')
-			return false;
+		if (schema.hasOwnProperty(field_name))
+			if (!!schema[field_name].required && typeof(object[field_name]) == 'undefined')
+				return false;
 	return true;
 };
 
 exports.insertIntoTable = function(name, object, schema, cb) {
 	if (exports.validate(object, schema)) {
 		var query = "INSERT INTO " + name + " (";
-		var first = true
-		for (var field_name in object) {
-			if (typeof(object[field_name]) != 'function') {
+		var first = true;
+		for (var field_name in object)
+			if (object.hasOwnProperty(field_name)) {
 				if (first)
 					first = false;
 				else
 					query += ',';
 				query += field_name;
 			}
-		}
 
 		query += ') VALUES (';
 		first = true;
@@ -77,7 +72,7 @@ exports.insertIntoTable = function(name, object, schema, cb) {
 		var values = [];
 
 		for (field_name in object) {
-			if (typeof(object[field_name]) != 'function') {
+			if (object.hasOwnProperty(field_name)) {
 				if (first)
 					first = false;
 				else
@@ -101,7 +96,7 @@ exports.update = function(name, object, schema, cb) {
 		var first = true;
 		var values = [];
 		for (var field_name in object) {
-			if (typeof(object[field_name]) != 'function') {
+			if (object.hasOwnProperty(field_name)) {
 				if (first)
 					first = false;
 				else
@@ -150,9 +145,11 @@ exports.findFunction = function(tableName) {
 		var query = 'SELECT * FROM ' + tableName + ' WHERE ';
 		var first = true;
 		for (var field_name in data) {
-			if (first) first = false;
-			else query += ' AND ';
-			query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
+			if (data.hasOwnProperty(field_name)) {
+				if (first) first = false;
+				else query += ' AND ';
+				query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
+			}
 		}
 		exports.pool.query(query, [], cb)
 	}
@@ -163,9 +160,11 @@ exports.deleteWhereFunction = function(tableName) {
 		var query = 'DELETE FROM ' + tableName + ' WHERE ';
 		var first = true;
 		for (var field_name in data) {
-			if (first) first = false;
-			else query += ' AND ';
-			query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
+			if (data.hasOwnProperty(field_name)) {
+				if (first) first = false;
+				else query += ' AND ';
+				query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
+			}
 		}
 		exports.pool.query(query, [], cb)
 	}

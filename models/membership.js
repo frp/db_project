@@ -26,7 +26,7 @@ var schema = {
 };
 
 exports.initTables = function(cb) {
-    dbaccess.createTable(tableName, schema, function(err, result){
+    dbaccess.createTable(tableName, schema, function(err){
         cb(err);
     });
 };

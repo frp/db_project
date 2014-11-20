@@ -1,6 +1,6 @@
-var dbaccess = require('./dbaccess')
-var pool = dbaccess.pool
-var tableName = dbaccess.prefix + 'users'
+var dbaccess = require('./dbaccess');
+var pool = dbaccess.pool;
+var tableName = dbaccess.prefix + 'users';
 
 var schema = {
 	id: {
@@ -75,7 +75,7 @@ exports.findById = dbaccess.findByIdFunction(tableName, 'id', {});
 exports.save = dbaccess.saveFunction(tableName, schema, 'id');
 
 exports.initTables = function(cb) {
-	dbaccess.createTable(tableName, schema, function(err, result){
+	dbaccess.createTable(tableName, schema, function(err){
 		cb(err);
 	});
 };
