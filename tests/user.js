@@ -3,7 +3,7 @@ var dbaccess = require('../models/dbaccess');
 var helpers = require('../testhelpers/dbhelpers.js');
 var should = require('should');
 
-describe('User', function(done) {
+describe('User', function() {
 	beforeEach(helpers.setUpDb(function(done) {
 		done();
 	}));
@@ -20,7 +20,7 @@ describe('User', function(done) {
 		user.save({email: 'aaa@bbb.com'}, function(err) {
 			err.should.be.equal(dbaccess.err_validation_failed);
 			done();
-		})
+		});
 	});
 
 	describe('Operations with existing user', function() {
@@ -31,7 +31,7 @@ describe('User', function(done) {
 		it('should support updating', function(done) {
 			user.findById(1, function(err, row) {
 				if (err) throw err;
-				row['name'] = 'Serhiy';
+				row.name = 'Serhiy';
 				user.save(row, function(err) {
 					if (err) throw err;
 					user.findById(1, function(err, row) {
@@ -52,14 +52,14 @@ describe('User', function(done) {
 		});
 
 		it('should reject wrong user', function(done) {
-			user.authorization('test2@gmail.com', 'testpass', function(err, id) {
+			user.authorization('test2@gmail.com', 'testpass', function(err) {
 				err.should.be.equal(dbaccess.err_record_not_found);
 				done();
 			});
 		});
 
 		it('should reject wrong password', function(done) {
-			user.authorization('test@gmail.com', 'testvfgfdpass', function(err, id) {
+			user.authorization('test@gmail.com', 'testvfgfdpass', function(err) {
 				err.should.be.equal(user.err_wrong_password);
 				done();
 			});

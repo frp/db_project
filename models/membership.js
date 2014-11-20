@@ -18,10 +18,9 @@ var schema = {
         referenceTable: dbaccess.prefix + 'flashmobs',
         referenceField: 'id'
     },
-    // FIXME: change to enum
     membership_type: {
-        db_type: 'VARCHAR',
-        length: 20
+        db_type: 'ENUM',
+        values: ['main_moderator', 'moderator', 'invited', 'member']
     }
 };
 

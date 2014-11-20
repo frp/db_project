@@ -3,6 +3,7 @@ var flashmob = require('../models/flashmob');
 var membership = require('../models/membership');
 var dbaccess = require('../models/dbaccess');
 var stage = require('../models/stage');
+var comment = require('../models/comment');
 
 exports.setUpFlashmobTables = function (cb) {
     return function(test) {
@@ -10,7 +11,7 @@ exports.setUpFlashmobTables = function (cb) {
             if (err) throw err;
             cb(test);
         });
-    }
+    };
 };
 
 exports.setUpUserTables = function (cb) {
@@ -19,7 +20,7 @@ exports.setUpUserTables = function (cb) {
             if (err) throw err;
             cb(test);
         });
-    }
+    };
 };
 
 exports.setUpMembershipTables = function (cb) {
@@ -28,7 +29,7 @@ exports.setUpMembershipTables = function (cb) {
             if (err) throw err;
             cb(test);
         });
-    }
+    };
 };
 
 exports.setUpStageTables = function (cb) {
@@ -37,7 +38,16 @@ exports.setUpStageTables = function (cb) {
             if (err) throw err;
             cb(test);
         });
-    }
+    };
+};
+
+exports.setUpCommentTables = function (cb) {
+    return function(test) {
+        comment.initTables(function(err) {
+            if (err) throw err;
+            cb(test);
+        });
+    };
 };
 
 exports.setUpDb = function (cb) {
@@ -45,9 +55,9 @@ exports.setUpDb = function (cb) {
         dbaccess.dropAllTables(function(err, result) {
             if (err) throw(err);
             exports.setUpUserTables(exports.setUpFlashmobTables(exports.setUpMembershipTables(
-                exports.setUpStageTables(cb))))(test);
+                exports.setUpStageTables(exports.setUpCommentTables(cb)))))(test);
         });
-    }
+    };
 };
 
 exports.setUpFlashmob = function(cb) {
@@ -66,7 +76,7 @@ exports.setUpFlashmob = function(cb) {
             if (err) throw err;
             cb(test);
         });
-    }
+    };
 };
 
 exports.setUpUser = function(cb) {
@@ -79,5 +89,5 @@ exports.setUpUser = function(cb) {
             if (err) throw err;
             cb(test);
         });
-    }
+    };
 };
