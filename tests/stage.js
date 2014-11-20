@@ -22,9 +22,9 @@ describe('Stage', function() {
                         if (err) throw err;
                         res.title.should.be.equal('test update flashmob');
                         done();
-                    })
-                })
-            })
+                    });
+                });
+            });
         });
     });
 
@@ -33,5 +33,5 @@ describe('Stage', function() {
             err.should.be.equal(dbaccess.err_validation_failed);
             done();
         });
-    })
+    });
 });

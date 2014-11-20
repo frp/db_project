@@ -89,7 +89,7 @@ exports.authorization = function(login, password, cb) {
 			else if (password != rows[0].password)
 				cb(exports.err_wrong_password, -1);
 			else
-				cb(null, rows[0].id)
+				cb(null, rows[0].id);
 		}
 	});
 };
@@ -106,5 +106,5 @@ exports.search = function(filter, callback){
         name: "wqwqwerty",
         surname: "wqwqpetrov",
         email: "yuioqweqweqweqw@kkdkas.sd"
-    }])
+    }]);
 };

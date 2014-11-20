@@ -19,7 +19,7 @@ describe('Flashmob', function() {
         flashmob.save({title: 'New flashmob'}, function(err) {
             err.should.be.equal(dbaccess.err_validation_failed);
             done();
-        })
+        });
     });
 
     describe('Operations on existing flashmobs', function() {
@@ -30,12 +30,12 @@ describe('Flashmob', function() {
         it('should support updating', function(done) {
             flashmob.findById(1, function(err, row) {
                 if (err) throw err;
-                row['title'] = 'Changed title';
+                row.title = 'Changed title';
                 flashmob.save(row, function(err) {
                     if (err) throw err;
                     flashmob.findById(1, function(err, row) {
                         if (err) throw err;
-                        row.title.should.be.equal('Changed title')
+                        row.title.should.be.equal('Changed title');
                         done();
                     });
                 });
@@ -44,6 +44,7 @@ describe('Flashmob', function() {
 
         it ('should support adding members', function(done) {
             flashmob.findById(1, function(err, data) {
+                if (err) throw err;
                 data.addMember(1, 'member', function(err) {
                     if (err) throw err;
                     flashmob.findById(1, function(err, data) {
@@ -60,6 +61,7 @@ describe('Flashmob', function() {
 
         it ('should return error in case of wrong membership type', function (done) {
             flashmob.findById(1, function(err, data) {
+                if (err) throw err;
                 data.addMember(1, 'wrong', function(err) {
                     err.should.be.ok;
                     done();
@@ -69,6 +71,7 @@ describe('Flashmob', function() {
 
         it ('should support deleting members', function(done) {
             flashmob.findById(1, function(err, data) {
+                if (err) throw err;
                 data.addMember(1, 'member', function(err) {
                     if (err) throw err;
                     flashmob.findById(1, function(err, data) {
@@ -95,9 +98,9 @@ describe('Flashmob', function() {
                         if (err) throw err;
                         data.length.should.be.equal(1);
                         done();
-                    })
+                    });
                 });
-            })
+            });
         });
     });
 });
