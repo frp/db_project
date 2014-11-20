@@ -76,5 +76,19 @@ describe('Flashmob', function() {
                 });
             });
         });
+
+        it ('should support adding stages', function(done) {
+            flashmob.findById(1, function(err, data) {
+                if (err) throw err;
+                data.addStage({title: 'Stage 1'}, function(err) {
+                    if (err) throw err;
+                    data.getStages(function(err, data) {
+                        if (err) throw err;
+                        data.length.should.be.equal(1);
+                        done();
+                    })
+                });
+            })
+        });
     });
 });

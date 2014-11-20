@@ -2,6 +2,7 @@ var user = require('../models/user');
 var flashmob = require('../models/flashmob');
 var membership = require('../models/membership');
 var dbaccess = require('../models/dbaccess');
+var stage = require('../models/stage');
 
 exports.setUpFlashmobTables = function (cb) {
     return function(test) {
@@ -30,11 +31,21 @@ exports.setUpMembershipTables = function (cb) {
     }
 };
 
+exports.setUpStageTables = function (cb) {
+    return function(test) {
+        stage.initTables(function(err) {
+            if (err) throw err;
+            cb(test);
+        });
+    }
+};
+
 exports.setUpDb = function (cb) {
     return function(test) {
         dbaccess.dropAllTables(function(err, result) {
             if (err) throw(err);
-            exports.setUpUserTables(exports.setUpFlashmobTables(exports.setUpMembershipTables(cb)))(test);
+            exports.setUpUserTables(exports.setUpFlashmobTables(exports.setUpMembershipTables(
+                exports.setUpStageTables(cb))))(test);
         });
     }
 };

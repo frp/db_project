@@ -1,6 +1,8 @@
 var dbaccess = require('./dbaccess');
 var tableName = dbaccess.prefix + 'flashmobs';
 var membership = require('./membership');
+var _ = require('lodash');
+var stage = require('./stage');
 
 // FIXME: determine which fields are required and which aren't
 var schema = {
@@ -73,6 +75,14 @@ Flashmob.prototype.deleteMember = function(userId, type, cb) {
 		membership_type: type,
 		flashmob_id: this.id
 	}, cb);
+};
+
+Flashmob.prototype.addStage = function(stageData, cb) {
+	stage.save(_.assign({flashmob_id: this.id}, stageData), cb);
+};
+
+Flashmob.prototype.getStages = function(cb) {
+	stage.find( {flashmob_id: this.id }, cb);
 };
 
 exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());
