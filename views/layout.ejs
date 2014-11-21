@@ -80,11 +80,11 @@
 			<a href="index.html"><img src="img/logo.png" alt="Left template" id="logo" /></a>
 						
 			<!-- login zone-->
-			<form  method="get" id="searchform" action="#">
+			<form  method="post" id="searchform" action="#">
 				<div>				
-					<input type="text" placeholder="Логін" name="s" class="login" onfocus="defaultInput(this)" />
-					<input type="password" placeholder="Пароль" name="s" class="login" onfocus="defaultInput(this)" />
-					<div class="login_manage"> <a href="index_logged.html">Вхід</a> | <a href="index.html">Забув пароль</a> | <a href="index.html">Реєстрація</a> </div>
+					<input type="text" placeholder="Логін" name="login" class="login" onfocus="defaultInput(this)" />
+					<input type="password" placeholder="Пароль" name="password" class="login" onfocus="defaultInput(this)" />
+                    <div class="login_manage"> <input type="submit" value="Вхід" name="submit" id="submit" /> | <a href="#">Забув пароль</a> | <a href="/registration">Реєстрація</a> </div>
 				</div>
 			</form>
 			<!-- ENDS login zone-->

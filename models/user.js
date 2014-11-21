@@ -84,7 +84,7 @@ exports.initTables = function(cb) {
 };
 
 exports.authorization = function(login, password, cb) {
-	pool.query('SELECT id, password FROM ' + tableName + ' WHERE email = ?', [login], function(err, rows) {
+	pool.query('SELECT id, password FROM ' + tableName + ' WHERE login = ?', [login], function(err, rows) {
 		if (err) throw err;
 		else {
 			if (typeof rows[0] == 'undefined')

@@ -5,7 +5,7 @@ exports.get = function(req, res, next){
     Users.findById(userId, function(err, user){
         if(err) res.send("User not found")
         else{
-            res.render("userPage", {
+            res.render("profile", {
                 user :user,
                 userId: req.session.userId
             })
