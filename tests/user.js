@@ -44,7 +44,7 @@ describe('User', function() {
 		});
 
 		it('should support authorization', function(done) {
-			user.authorization('test@gmail.com', 'testpass', function(err, id) {
+			user.authorization('user', 'testpass', function(err, id) {
 				id.should.be.equal(1);
 				should(err).not.be.ok;
 				done();
@@ -52,14 +52,14 @@ describe('User', function() {
 		});
 
 		it('should reject wrong user', function(done) {
-			user.authorization('test2@gmail.com', 'testpass', function(err) {
+			user.authorization('test2', 'testpass', function(err) {
 				err.should.be.equal(dbaccess.err_record_not_found);
 				done();
 			});
 		});
 
 		it('should reject wrong password', function(done) {
-			user.authorization('test@gmail.com', 'testvfgfdpass', function(err) {
+			user.authorization('user', 'testvfgfdpass', function(err) {
 				err.should.be.equal(user.err_wrong_password);
 				done();
 			});
