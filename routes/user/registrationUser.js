@@ -1,7 +1,7 @@
 var Users = require("../../models/user")
 
 exports.get = function(req, res, next){
-    res.render('registration');
+    res.render('registration',{session: req.session});
 }
 exports.post = function(req, res, next){
 
