@@ -16,4 +16,10 @@ module.exports = function(app){
     //app.post('/falshmob/:id', require('./flashmob/flashmobPage').post)
     app.get('/createFlashmob',require('./flashmobs/registrationFlashmob').get)
     app.post('/createFlashmob',require('./flashmobs/registrationFlashmob').post)
+
+    app.get('/exit', function(req,res){
+        req.session.userId = null;
+        req.session.login = null;
+        res.redirect('/');
+    })
 }

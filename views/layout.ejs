@@ -78,31 +78,37 @@
 		<div id="sidebar">
 			<!-- logo -->
 			<a href="index.html"><img src="/img/logo.png" alt="Left template" id="logo" /></a>
-						
-			<!-- login zone-->
-			<form  method="post" id="searchform" action="#">
-				<div>				
-					<input type="text" placeholder="Логін" name="login" class="login" onfocus="defaultInput(this)" />
-					<input type="password" placeholder="Пароль" name="password" class="login" onfocus="defaultInput(this)" />
-                    <div class="login_manage"> <input type="submit" value="Вхід" name="submit" id="submit" /> | <a href="#">Забув пароль</a> | <a href="/registration">Реєстрація</a> </div>
-				</div>
-			</form>
+          	<!-- login zone-->
+            <% if(session.login){ %>
+              <%-"Привіт, "+session.login%>
+            <ul id="nav" class="sf-menu sf-vertical">
+                <li class="current-menu-item"><a href="/">ГОЛОВНА</a></li>
+                <li class="current-menu-item"><a href=<%-"/users/"+session.userId%>>ПРОФІЛЬ</a></li>
+                <li><a href="flashmobs.html">ФЛЕШМОБИ</a>
+                    <ul>
+                        <li><a href="flashmobs.html">Пошук...</a>
+                        <li><a href="flashmobs.html">Мої флешмоби</a>
+                        <li><a href="flashmobs.html">Мої запрошення</a>
+                        <li><a href="flashmobs.html">Минулі флешмоби</a>
+                        <li><a href="flashmobs.html">Заплановані флешмоби</a>
+                    </ul>
+                </li>
+                <li><a href="skins.html">МОЇ ПОВІДОМЛЕННЯ</a></li>
+                <li class="current-menu-item"><a href="/exit">ВИХІД</a></li>
+            </ul>
+            <% } else{ %>
+                <form  method="post" id="searchform" action="#">
+                    <div>
+                        <input type="text" placeholder="Логін" name="login" class="login" onfocus="defaultInput(this)" />
+                        <input type="password" placeholder="Пароль" name="password" class="login" onfocus="defaultInput(this)" />
+                        <div class="login_manage"> <input type="submit" value="Вхід" name="submit" id="submit" /> | <a href="#">Забув пароль</a> | <a href="/registration">Реєстрація</a> </div>
+                    </div>
+                </form>
+            <% } %>
 			<!-- ENDS login zone-->
 						
 			<!-- Navigation -->
-			<ul id="nav" class="sf-menu sf-vertical">
-				<li class="current-menu-item"><a href="../">ГОЛОВНА</a></li>
-				<li><a href="flashmobs.html">ФЛЕШМОБИ</a>
-					<ul>
-						<li><a href="flashmobs.html">Пошук...</a>
-						<li><a href="flashmobs.html">Мої флешмоби</a>
-						<li><a href="flashmobs.html">Мої запрошення</a>
-						<li><a href="flashmobs.html">Минулі флешмоби</a>
-						<li><a href="flashmobs.html">Заплановані флешмоби</a>
-					</ul>
-				</li>
-				<li><a href="skins.html">МОЇ ПОВІДОМЛЕННЯ</a></li>
-			</ul>
+
 			<!-- Navigation -->						
 		</div>
 		<!-- ENDS SIDEBAR -->

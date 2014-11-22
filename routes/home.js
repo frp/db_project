@@ -5,9 +5,12 @@ var Users = require("../models/user")
 
 module.exports.get = function(req, res, next){
     if(req.session.userId)
-        res.redirect("/users/"+res.session.userId)
-    else
-        res.render("index");
+        res.render("index",{session:req.session});
+    else {
+        req.session.userId = null;
+        req.session.login = null;
+        res.render("index",{session:req.session});
+    }
 }
 module.exports.post = function(req, res, next){
 
@@ -25,8 +28,9 @@ module.exports.post = function(req, res, next){
 
         Users.authorization(req.body.login, req.body.password, function (err, userId) {
             if (err) {
-                res.render("index")}
+                res.render("index",{session:req.session})}
             else {
+                req.session.login = req.body.login;
                 req.session.userId = userId;
                 res.redirect("/users/" + userId);
             }

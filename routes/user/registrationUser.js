@@ -5,7 +5,7 @@ exports.get = function(req, res, next){
 }
 exports.post = function(req, res, next){
 
-    console.log(req.body)
+
     req.assert("login", "Incorrect email").notEmpty();
     req.assert("email", "Incorrect email").isEmail();
     req.assert("password", "Incorrect password").len(4,20);
@@ -18,15 +18,8 @@ exports.post = function(req, res, next){
         res.render("registration");
     }
     else{
-        delete req.body.passwordConfirmation
-        delete req.body.rulesAccept
-        delete req.body.captcha
-        delete req.body.submit
-
-        //FIXME: location and other contacts, show_email(on->true, off->false)
-        delete req.body.location
-        delete req.body.hideOtherContats
-        Users.save(req.body, function(err){
+        var user = normalizeUser(req.body)
+        Users.save(user, function(err){
                 if(err){console.log("next errors")
                     next(err)}
                 else{
@@ -37,5 +30,24 @@ exports.post = function(req, res, next){
             }
         )
     }
-
+}
+function normalizeUser(user){
+    var normUser={};
+    normUser.login = user.login;
+    normUser.name = user.name;
+    normUser.surname = user.surname;
+    normUser.sex = user.sex;
+    normUser.country = user.country;
+    normUser.city = user.city;
+    normUser.interests = user.interests;
+    normUser.email = user.email;
+    normUser.birthDate = user.birthDate;
+    normUser.phone = user.phone;
+    normUser.skype = user.skype;
+    normUser.other = user.other;
+    normUser.password = user.password;
+    normUser.show_email = (user.show_email == 'on');
+    normUser.show_phone = (user.show_phone == 'on');
+    normUser.show_skype = (user.show_skype == 'on');
+    return normUser
 }

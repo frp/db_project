@@ -30,7 +30,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td id="profileAva" rowspan="5"><img src="/img/dummies/116x116.jpg"> <br><br><a href="#">Настроить профиль</a></td>
+							<td id="profileAva" rowspan="5"><img src="/img/dummies/116x116.jpg"> <br><br><u>Написати повідомлення</u></td>
 							<td><%-user.name + "   "+user.surname%></td>
 						</tr>
 						<tr>
@@ -72,16 +72,34 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td>Email</td>
-							<td><%-user.email%></td>
+                          	<td>Email</td>
+							<td>
+                                <% if(user.show_email){ %>
+                                <%-user.email%>
+                                <% } else{ %>
+                                Приховано
+                                <% } %>
+                            </td>
 						</tr>
 						<tr>
 							<td>Телефон</td>
-							<td><%-user.phone%></td>
+							<td>
+                                <% if(user.show_phone){ %>
+                                <%-user.phone%>
+                                <% } else{ %>
+                                Приховано
+                                <% } %>
+                            </td>
 						</tr>
 						<tr>
 							<td>Skype</td>
-							<td><%-user.skype%></td>
+							<td>
+                                <% if(user.show_skype){ %>
+                                <%-user.skype%>
+                                <% } else{ %>
+                                Приховано
+                                <% } %>
+                            </td>
 						</tr>
 						<tr>
 							<td>Інше</td>
