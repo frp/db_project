@@ -15,7 +15,7 @@ exports.post = function(req, res, next){
 
     if (errors) {
         console.log("errors")
-        res.render("registration");
+        res.render("registration",{session: req.session});
     }
     else{
         var user = normalizeUser(req.body)
