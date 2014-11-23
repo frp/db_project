@@ -152,7 +152,7 @@ div.toggle-container .block p{
 
 a.link-button,
 a.link-button-dark{
-	display: table;
+	display: inline-table;
 	background: url(../img/link-button.png) no-repeat;
 	line-height: 44px;
 	margin: 5px 0px;
@@ -165,7 +165,7 @@ a.link-button-dark{
 
 a.link-button span,
 a.link-button-dark span{
-	display: block;
+	display: inline-table;
 	line-height: 44px;
 	margin-left: 21px;
 	padding-right: 21px;

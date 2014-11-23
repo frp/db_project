@@ -503,7 +503,7 @@ h6.header-line{
 
 #regForm,
 #commentform,
-#regForm{
+#flashForm{
 	margin-bottom: 18px;
 }
 #captchaImage{
@@ -512,6 +512,8 @@ h6.header-line{
 }
 #regForm input,
 #regForm textarea,
+#flashForm input,
+#flashForm textarea,
 #commentform input,
 #commentform textarea{
 	padding: 10px 15px;
@@ -521,22 +523,27 @@ h6.header-line{
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
-#regForm input.noposhy{
+#regForm input.noposhy,
+#flashForm input.noposhy{
 	width:50px;
 }
 #regForm input,
 #regForm textarea,
+#flashForm input,
+#flashForm textarea,
 #commentform input,
 #commentform textarea{
 	width: 282px;
 }
 
 #regForm textarea,
+#flashForm textarea,
 #commentform textarea{
 	width: 438px;
 }
 
 #regForm #submit,
+#flashForm #submit,
 #commentform input#submit{
 	width: 150px;
 	margin: 21px 0px;
@@ -545,6 +552,7 @@ h6.header-line{
 }
 
 #regForm #submit:hover,
+#flashForm #submit:hover,
 #commentform input#submit:hover{
 	background: #f1f1f1;
 	color: #606060;

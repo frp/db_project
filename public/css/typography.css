@@ -210,6 +210,8 @@ h6{ font-size: 26px; }
 
 #regForm input,
 #regForm textarea,
+#flashForm input,
+#flashForm textarea,
 #commentform input,
 #commentform textarea{
 	color: #606060;
@@ -217,13 +219,13 @@ h6{ font-size: 26px; }
 }
 
 #regForm label,
+#flashForm label,
 #commentform label{
 	display: block;
 	font-size: 14px;
 	line-height: 2.5em;
 	font-weight: light;
 }
-
 /* FOOTER------------------------------------------------------------*/
 
 #footer a{ text-decoration: none; }
