@@ -1,10 +1,10 @@
 var Flashmob = require("../../models/flashmob")
 var Users = require("../../models/user")
 var sync = require('synchronize');
+var _ = require('lodash');
 exports.get = function(req, res, next){
     var flashmobId = req.params.id
     var data = {session:req.session}
-    var massUsers = []
     Flashmob.findById(flashmobId, function(err, flashmob){
         if(err) res.send("not found")
         else{
@@ -13,15 +13,14 @@ exports.get = function(req, res, next){
                 data.organizer = {login: user.login, id: user.id}
                 flashmob.getMembers(function(err, members){
                     sync.fiber(function(){
-                        for(var i = 0; i < members.length; i++) {
-                            var user = sync.await(Users.findById(members[i].user_id, sync.defer()));
-                            var tmp = {
-                                id: user.id,
-                                login: user.login
-                            };
-                            massUsers.push(tmp)
-                        }
-                        data.members = massUsers;
+                        sync.parallel(function() {
+                            for(var i = 0; i < members.length; i++) {
+                                Users.findById(members[i].user_id, sync.defer());
+                            }
+                        });
+                        data.members = _.map(sync.await(), function(user) {
+                            return _.pick(user, ['id', 'login']);
+                        });
                         res.render("flashmobPage", data)
                     });
                 })
