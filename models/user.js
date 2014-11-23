@@ -68,6 +68,10 @@ var schema = {
 	},
 	show_skype: {
 		db_type: 'BOOL'
+	},
+	avatar: {
+		db_type: 'VARCHAR',
+		length: 255
 	}
 };
 
