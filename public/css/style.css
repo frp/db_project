@@ -549,6 +549,13 @@ h6.header-line{
 	background: #f1f1f1;
 	color: #606060;
 }
+#submit{
+	background: rgba(0,0,0,0);
+	border: 0px;
+	color: white;
+	font-size: 100%;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
 
 /* FILTER ------------------------------------------------------------*/
 
