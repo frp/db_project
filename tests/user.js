@@ -2,6 +2,7 @@ var user = require('../models/user');
 var dbaccess = require('../models/dbaccess');
 var helpers = require('../testhelpers/dbhelpers.js');
 var should = require('should');
+var sync = require('synchronize');
 
 describe('User', function() {
 	beforeEach(helpers.setUpDb(function(done) {
@@ -19,6 +20,36 @@ describe('User', function() {
 	it('should check for required fields', function(done) {
 		user.save({email: 'aaa@bbb.com'}, function(err) {
 			err.should.be.equal(dbaccess.err_validation_failed);
+			done();
+		});
+	});
+
+	it('should allow searching', function(done) {
+		sync.fiber(function() {
+			sync.await(user.save({login: 'u1', password: 'p', email: 'e1@s.com', sex: 'M'}, sync.defer()));
+			sync.await(user.save({login: 'u2', password: 'p', email: 'e2@s.com', sex: 'F'}, sync.defer()));
+			sync.await(user.save({login: 'u3', password: 'p', email: 'e3@s.com', sex: 'M'}, sync.defer()));
+
+			var users = sync.await(user.find({sex: 'M'}, [], sync.defer()));
+			users.length.should.be.equal(2);
+			users[0].login.should.be.equal('u1');
+			users[1].login.should.be.equal('u3');
+			done();
+		});
+	});
+
+	it('should allow selecting only specific fields in search', function(done) {
+		sync.fiber(function() {
+			sync.await(user.save({login: 'u1', password: 'p', email: 'e1@s.com', sex: 'M'}, sync.defer()));
+			sync.await(user.save({login: 'u2', password: 'p', email: 'e2@s.com', sex: 'F'}, sync.defer()));
+			sync.await(user.save({login: 'u3', password: 'p', email: 'e3@s.com', sex: 'M'}, sync.defer()));
+
+			var users = sync.await(user.find({sex: 'M'}, ['email'], sync.defer()));
+			users.length.should.be.equal(2);
+			users[0].email.should.be.equal('e1@s.com');
+			users[1].email.should.be.equal('e3@s.com');
+			should(typeof users[0].login).be.equal('undefined');
+			should(typeof users[1].login).be.equal('undefined');
 			done();
 		});
 	});

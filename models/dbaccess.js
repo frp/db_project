@@ -144,32 +144,30 @@ exports.dropAllTables = function(cb) {
 	exports.pool.query('DROP TABLE IF EXISTS ' + tablesToDrop.join(','), cb);
 };
 
-exports.findFunction = function(tableName) {
-	return function(data, cb) {
-		var query = 'SELECT * FROM ' + tableName + ' WHERE ';
-		var first = true;
-		for (var field_name in data) {
-			if (data.hasOwnProperty(field_name)) {
-				if (first) first = false;
-				else query += ' AND ';
-				query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
-			}
+function generateWhereClause(object) {
+	var where = '';
+	var first = true;
+	for (var field_name in object) {
+		if (object.hasOwnProperty(field_name)) {
+			if (first) first = false;
+			else where += ' AND ';
+			where += mysql.escapeId(field_name) + ' = ' + mysql.escape(object[field_name]);
 		}
+	}
+	return where;
+}
+
+exports.findFunction = function(tableName) {
+	return function(data, fields, cb) {
+		var query = 'SELECT ' + (fields.length > 0 ? fields.join(', ') : '*') +
+			' FROM ' + tableName + ' WHERE ' + generateWhereClause(data);
 		exports.pool.query(query, [], cb);
 	};
 };
 
 exports.deleteWhereFunction = function(tableName) {
 	return function(data, cb) {
-		var query = 'DELETE FROM ' + tableName + ' WHERE ';
-		var first = true;
-		for (var field_name in data) {
-			if (data.hasOwnProperty(field_name)) {
-				if (first) first = false;
-				else query += ' AND ';
-				query += mysql.escapeId(field_name) + ' = ' + mysql.escape(data[field_name]);
-			}
-		}
+		var query = 'DELETE FROM ' + tableName + ' WHERE ' + generateWhereClause(data);
 		exports.pool.query(query, [], cb);
 	};
 };

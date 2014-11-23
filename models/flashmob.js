@@ -82,7 +82,7 @@ Flashmob.prototype.addMember = function(userId, type, cb) {
 };
 
 Flashmob.prototype.getMembers = function(cb) {
-	membership.find({ flashmob_id: this.id }, cb);
+	membership.find({ flashmob_id: this.id }, [], cb);
 };
 
 Flashmob.prototype.deleteMember = function(userId, type, cb) {
@@ -98,7 +98,7 @@ Flashmob.prototype.addStage = function(stageData, cb) {
 };
 
 Flashmob.prototype.getStages = function(cb) {
-	stage.find( {flashmob_id: this.id }, cb);
+	stage.find( {flashmob_id: this.id }, [], cb);
 };
 
 Flashmob.prototype.addComment = function(data, cb) {
@@ -106,7 +106,7 @@ Flashmob.prototype.addComment = function(data, cb) {
 };
 
 Flashmob.prototype.getComments = function(cb) {
-	comment.find({flashmob_id: this.id}, cb);
+	comment.find({flashmob_id: this.id}, [], cb);
 };
 
 exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());
@@ -119,6 +119,4 @@ exports.initTables = function(cb) {
 	});
 };
 
-exports.search = function(filter, callback){
-	// TODO: think about what is needed to be done here
-};
+exports.find = dbaccess.findFunction(tableName);

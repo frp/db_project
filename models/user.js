@@ -23,7 +23,7 @@ var schema = {
 	},
 	sex: {
 		db_type: 'ENUM',
-		values: ['M', 'T']
+		values: ['M', 'F']
 	},
 	country: {
 		db_type: 'VARCHAR',
@@ -97,17 +97,4 @@ exports.authorization = function(login, password, cb) {
 	});
 };
 
-exports.search = function(filter, callback){
-    //TODO: please, i need this method =);  callback(err, arrayOfUsers)
-    callback(null, [{
-        id: 1,
-        name: "qwerty",
-        surname: "petrov",
-        email: "qweqweqweqw@kkdkas.sd"
-    },{
-        id: 2,
-        name: "wqwqwerty",
-        surname: "wqwqpetrov",
-        email: "yuioqweqweqweqw@kkdkas.sd"
-    }]);
-};
+exports.find = dbaccess.findFunction(tableName);
