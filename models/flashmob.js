@@ -57,6 +57,11 @@ var schema = {
 		values: ['organizer', 'main_moderators', 'moderators', 'members'],
 		required: true
 	},
+	location: {
+		db_type: 'VARCHAR',
+		length: 100,
+		required: true
+	},
 	main_image: {
 		db_type: 'VARCHAR',
 		length: 255
