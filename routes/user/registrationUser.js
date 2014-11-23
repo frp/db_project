@@ -1,7 +1,10 @@
 var Users = require("../../models/user")
 
 exports.get = function(req, res, next){
-    res.render('registration',{session: req.session});
+    if(req.session.userId)
+        res.redirect("/users/"+req.session.userId)
+    else
+        res.render('registration',{session: req.session});
 }
 exports.post = function(req, res, next){
 
@@ -23,7 +26,6 @@ exports.post = function(req, res, next){
                 if(err){console.log("next errors")
                     next(err)}
                 else{
-                    console.log("qwerty")
                     res.send("Registration successful <a href='/'>on first page</a>")
                     //TODO: подумать, куда его редиректнуть
                 }
