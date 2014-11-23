@@ -35,6 +35,7 @@ exports.post = function(req, res, next){
 }
 function normalizeUser(user){
     var normUser={};
+    console.log(user)
     normUser.login = user.login;
     normUser.name = user.name;
     normUser.surname = user.surname;
@@ -51,5 +52,7 @@ function normalizeUser(user){
     normUser.show_email = (user.show_email == 'on');
     normUser.show_phone = (user.show_phone == 'on');
     normUser.show_skype = (user.show_skype == 'on');
+    console.log(normUser)
+
     return normUser
 }

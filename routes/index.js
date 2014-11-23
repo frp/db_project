@@ -1,3 +1,4 @@
+var Flashmob = require("../models/flashmob")
 module.exports = function(app){
     app.get('/', require("./home").get)
     app.post('/', require("./home").post)
@@ -16,6 +17,20 @@ module.exports = function(app){
     //app.post('/falshmob/:id', require('./flashmob/flashmobPage').post)
     app.get('/createFlashmob',require('./flashmobs/registrationFlashmob').get)
     app.post('/createFlashmob',require('./flashmobs/registrationFlashmob').post)
+
+    app.get('/flashmobs/:id/in', function(req,res){
+        Flashmob.findById(req.params.id, function(err, flashmob){
+            if(err) res.send("{HTYM GJKYFZ !")
+            else{
+                flashmob.addMember(req.session.userId, "member", function(err){
+                    if(err) res.send("ХРЕНЬ ПОЛНАЯ")
+                    else{
+                        res.redirect('/flashmobs/'+req.params.id)
+                    }
+                })
+            }
+        })
+    })
 
     app.get('/exit', function(req,res){
         req.session.userId = null;

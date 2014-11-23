@@ -28,11 +28,11 @@
                     <h1>Перший</h1>
                     <!-- meta -->
                     <ul class="meta">
-                        <li>Від <a href="#">Олексія</a>,&nbsp;</li>
-                        <li> 21.11.2014 о 15:00 &nbsp;</li>
-                        <li> в <a href="#">м. Київ,</a>&nbsp;</li>
-                        <li> завершений,&nbsp;</li>
-                        <li> 10 коментарів&nbsp;</li>
+                        <li>Від <a href=<%-"/users/"+organizer.id%>><%-organizer.login%></a>,&nbsp;</li>
+                        <li> <%- flashmob.start_datetime%> &nbsp;</li>
+                        <li> в <a href="#">м. Київ,?????</a>&nbsp;</li>
+                        <li> <%- flashmob.status%>,&nbsp;</li>
+                        <li> 10 коментарів??????&nbsp;</li>
                     </ul>
                     <!-- ENDS meta -->
                     <!-- feature image -->
@@ -42,8 +42,7 @@
                     <!-- ENDS feature image -->
                     <!-- single post -->
                     <div class="the-content">
-                        <p>Наступний флешмоб вражає своєю цікавою задумкою і простотою. З допомогою цього флешмобу компанія перевізник поздоровила свого водія. Ці сльози радості на його лиці варті цього.</p>
-                        <p>Флешмоб - це заздалегідь спланована масова акція, зазвичай організована через Інтернет або інші сучасні засоби комунікації, у якій велика кількість людей оперативно збирається у громадському місці, протягом декількох хвилин виконує заздалегідь оговорені дії (сценарій), і потім швидко розходяться (wikipedia).</p>
+                        <%- flashmob.full_description%>
                     </div>
                 </div>
                 <!-- ENDS single post -->
@@ -129,7 +128,7 @@
                             <li><a href="#">Організатор</a></li>
                             <li><a href="#">Модератори</a></li>
                             <li><a href="#">Усі учасники</a></li>
-                            <li><a href="#">Взяти участь</a></li>
+                            <li><a href=<%-"/flashmobs/"+flashmob.id+"/in"%>>Взяти участь</a></li>
                         </ul>
 
                         <!-- tab "panes" -->
@@ -292,4 +291,5 @@
     </div>
     <!-- ENDS MAIN -->
 </div>
+<a href=<%-"/flashmobs/"+flashmob.id+"/in"%>>Взяти участь</a>
 <!-- ENDS WRAPPER -->
