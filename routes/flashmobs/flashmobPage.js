@@ -13,21 +13,17 @@ exports.get = function(req, res, next){
                 data.organizer = {login: user.login, id: user.id}
                 flashmob.getMembers(function(err, members){
                     sync.fiber(function(){
-                        for(mem in members)
-                            Users.findById(mem.user_id, function(err, user){
-                                if (err) res.send("fuck")
-                                else{
-                                    var tmp = {
-                                        id: user.id,
-                                        login: user.login
-                                    }
-                                    massUsers.push(tmp)
-                                }
-                            })
+                        for(var i = 0; i < members.length; i++) {
+                            var user = sync.await(Users.findById(members[i].user_id, sync.defer()));
+                            var tmp = {
+                                id: user.id,
+                                login: user.login
+                            };
+                            massUsers.push(tmp)
+                        }
                         data.members = massUsers;
-                        console.log(data)
                         res.render("flashmobPage", data)
-                        })
+                    });
                 })
             })
         }
