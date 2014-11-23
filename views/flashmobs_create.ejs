@@ -1,0 +1,130 @@
+<% layout('layout.ejs') %>
+		<!-- MAIN -->
+		<div id="main">
+
+			<!-- HEADER -->
+			<div id="header">
+				<div id="page-title">Створення флешмобу</div>
+				<!-- Breadcrumb-->
+				<div id="breadcrumbs">
+					Ви тут: 
+					<a title="Home" href="#">Головна</a> &raquo; 
+					<a title="Flashmobs" href="#">Флешмоби</a> &raquo; 
+					<a title="Create flashmobs" href="#">Створити флешмоб</a>
+				</div>
+				<!-- ENDS Breadcrumb-->	
+			</div>
+			<!-- ENDS HEADER -->
+			
+			<!-- CONTENT -->
+			<div id="content">
+						
+				<!-- PAGE CONTENT -->
+				<div id="page-content">
+				<!-- form -->
+				<h1>Створити флешмоб</h1>
+				<script type="text/javascript" src="js/form-validation.js"></script>
+				<form id="flashForm" action="#" method="post">
+					<fieldset>
+						<br>
+						<div>
+							<label>Назва флешмобу</label>
+							<input name="title"  id="title" type="text" class="form-poshytip" title="Введіть назву флешмобу" />
+						</div>
+						<div>
+							<label>Дата початку</label>
+							<input type="datetime-local" name="start_datetime" class="form-poshytip" title="Введіть дату початку флешмобу" />
+						</div>
+						<div>
+							<label>Дата закінчення</label>
+							<input type="datetime-local" name="end_datetime" class="form-poshytip" title="Введіть дату закінчення флешмобу" />
+						</div>
+						<div>
+							<label>Короткий опис</label>
+							<textarea name="short_description"  id="short_description" rows="3" cols="2"/></textarea>
+						</div>
+						<div>
+							<label>Повний опис</label>
+							<textarea name="full_description"  id="full_description" rows="5" cols="5"/></textarea>
+						</div>
+						<div>
+						<br><br><i>Приватність</i>
+						</div>
+						<hr>
+						<div>
+							<label>Тип флешмобу</label>
+							<select name="type" class="form-poshytip" title="Оберіть тип флешмобу">
+								<option value="open">Відкритий</option>
+								<option value="semiopen">Напіввідкритий</option>
+								<option value="closed">Закритий</option>
+							</select>
+						</div>
+						<div>
+							<label>Редагування інформації</label>
+							<select name="editrightsInfo" class="form-poshytip" title="Оберіть хто зможе редагувати інформацію про флешмоб"/>
+								<option value="superMod">Головні модератори</option>
+								<option value="mod">Модератори</option>
+								<option value="participant">Учасники</option>
+								<option value="user">Користувачі</option>
+							</select>
+						</div>
+						<div>
+							<label>Додавання фотографій та документів, редагування етапів</label>
+							<select name="editrightsDoc" class="form-poshytip" title="Оберіть хто зможе додавати фотографії,документи та редагувати етапи"/>
+								<option value="superMod">Головні модератори</option>
+								<option value="mod">Модератори</option>
+								<option value="participant">Учасники</option>
+								<option value="user">Користувачі</option>
+							</select>
+						</div>
+						<div>
+							<label>Запрошення нових учасників</label>
+							<select name="editrightsInv" class="form-poshytip" title="Оберіть хто зможе запрошувати нових учасників"/>
+								<option value="superMod">Головні модератори</option>
+								<option value="mod">Модератори</option>
+								<option value="participant">Учасники</option>
+								<option value="user">Користувачі</option>
+							</select>
+						</div>
+						<div>
+							<label>Коментування</label>
+							<select name="editrightsCom" class="form-poshytip" title="Оберіть хто зможе залишати свої коментарі"/>
+								<option value="superMod">Головні модератори</option>
+								<option value="mod">Модератори</option>
+								<option value="participant">Учасники</option>
+								<option value="user">Користувачі</option>
+							</select>
+						</div>
+						<div>
+						<br>
+						<hr>
+						<br>
+						<div>
+							<input type="checkbox" name="rulesAccept" class="noposhy">Прочитав і згоден з правилами користування
+						</div>
+						<br>
+						<hr>
+						<br>
+						<div id="captchaImage">
+							<img src="img/dummies/114x86.jpg">
+						</div>
+						<div>
+							<label>Введіть символи з зображення</label>
+							<input name="captcha"  id="captcha" type="text"/>
+						</div>
+						<br><br>
+						<p><input type="button" value="Зареєструватися" name="submit" id="submit" /></p>
+					</fieldset>
+					<p id="error" class="warning">Message</p>
+				</form>
+				<p id="success" class="success">Дякуємо за створення флешмобу.</p>
+				<!-- ENDS form -->	
+					
+				</div>
+				<!-- ENDS PAGE-CONTENT -->
+			
+			</div>
+			<!-- ENDS CONTENT -->
+			
+		</div>
+		<!-- ENDS MAIN -->
