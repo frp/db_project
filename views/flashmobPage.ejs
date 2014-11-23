@@ -25,7 +25,7 @@
 
                 <!-- Single post -->
                 <div class="post single">
-                    <h1>Перший</h1>
+                    <h1><%-flashmob.title%></h1>
                     <!-- meta -->
                     <ul class="meta">
                         <li>Від <a href=<%-"/users/"+organizer.id%>><%-organizer.login%></a>,&nbsp;</li>
@@ -138,12 +138,12 @@
                                 <!-- table -->
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                        <tr>
+                                            <td><a href=<%-"/users/"+organizer.id%> class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' /><%-organizer.login%></a></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <!-- ENDS table -->
@@ -155,12 +155,16 @@
                                 <!-- table -->
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td></td>
-                                    </tr>
+                                        <% for(var i = 0; i < members.length; i++) {
+                                                if(members[i].type == "modertor"||members[i].type == "main_modertor"){
+                                                    if(i % 4 == 0)
+                                                        {%><tr><%}
+                                        %>
+                                        <td><a href=<%- '/users/'+members[i].id%> class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' /><br><%-members[i].login%></a></td>
+                                        <%
+                                                    if(i % 4 == 3)
+                                                        {%></tr><%}
+                                        }}%>
                                     </tbody>
                                 </table>
                                 <!-- ENDS table -->
@@ -172,25 +176,19 @@
                                 <!-- table -->
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
-                                        <td><a href='profile.html' class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />Lorem ipsum</a></td>
+                                    <% for(var i = 0; i < members.length; i++) {
+                                            if(members[i].type == "member"){
+                                            if(i % 4 == 0)
+                                                {%><tr><%}
+                                        %>
+                                        <td><a href=<%-"/users/"+members[i].id%> class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' /><br><%-members[i].login%></a></td>
+                                        <%
+                                            if(i % 4 == 3)
+                                                {%></tr><%}
+                                    }}%>
                                     </tbody>
                                 </table>
+
                                 <!-- ENDS table -->
                                 <!-- Pagination -->
                                 <ul class='pager'>
@@ -231,51 +229,42 @@
                 <!-- comments list -->
                 <div class="comments-header"><span class="n-comments">25</span><h6 class="text">КОМЕНТАРІ</h6></div>
                 <ol class="comments-list">
+                    <% for(var i = 0; i < members.length; i++) {
+                            if(members[i].type == "member"){
+                            if(i % 4 == 0)
+                    {%><tr><%}
+                        %>
+                        <td><a href=<%-"/users/"+members[i].id%> class='url'><img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' /><br><%-members[i].login%></a></td>
+                        <%
+                        if(i % 4 == 3)
+                        {%></tr><%}
+                    }}%>
+                    <% for(var i = 0; i< comments.length; i++){%>
                     <li>
                         <div class="comment-wrap">
                             <img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />
                             <div class="comments-right">
-                                <div class="meta-date">20 листопада, 2014 @ 19:19</div>
-                                <div><a href='profile.html' class='url'><strong>Адмін</strong></a></div>
-                                <div class="brief"><p>Перший нах!</p></div>
+                                <div class="meta-date"><%- comments[i].date%></div>
+                                <div><a href='profile.html' class='url'><strong><%-comments[i].user_id%></strong></a></div>
+                                <div class="brief"><p><%-comments[i].text%></p></div>
                                 <a href="#" class="Редагувати-comment">Редагувати</a>
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="comment-wrap">
-                            <img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />
-                            <div class="comments-right">
-                                <div class="meta-date">20 листопада, 2014 @ 19:19</div>
-                                <div><a href='profile.html' class='url'><strong>Адмін</strong></a></div>
-                                <div class="brief"><p>Активно коментую.</p></div>
-                                <a href="#" class="Редагувати-comment">Редагувати</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="comment-wrap">
-                            <img alt='avatar' src='/img/dummies/avatar.jpg' class='avatar' />
-                            <div class="comments-right">
-                                <div class="meta-date">20 листопада, 2014 @ 19:19</div>
-                                <div><a href='profile.html' class='url'><strong>Адмін</strong></a></div>
-                                <div class="brief"><p>Я троль!</p></div>
-                                <a href="#" class="Редагувати-comment">Редагувати</a>
-                            </div>
-                        </div>
-                    </li>
+                    <%}%>
+
                 </ol>
                 <!-- ENDS comments list -->
 
                 <!-- comments form -->
                 <div class="leave-comment">
                     <h3>ЗАЛИШИТИ КОМЕНТАР</h3>
-                    <form action="#" method="post" id="commentform">
+                    <form action=<%-"/flashmobs/"+flashmob.id+"/addcomment"%> method="post" id="commentform">
                         <fieldset>
                             <div>
-                                <textarea name="comment" id="comment" cols="100" rows="10" tabindex="4" class="form-poshytip" title="Напишіть коментар"></textarea>
+                                <textarea name="text" id="comment" cols="100" rows="10" tabindex="4" class="form-poshytip" title="Напишіть коментар"></textarea>
                             </div>
-                            <p><input type="submit" name="submit" id="submit" tabindex="5" value="Надіслати" /></p>
+                            <p><input type="submit" id="submit" tabindex="5" value="Надіслати" /></p>
                             <p><input type="hidden" name="comment_post_ID" value="51" /></p>
                         </fieldset>
                     </form>

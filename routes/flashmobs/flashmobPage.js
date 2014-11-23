@@ -17,12 +17,22 @@ exports.get = function(req, res, next){
                             var user = sync.await(Users.findById(members[i].user_id, sync.defer()));
                             var tmp = {
                                 id: user.id,
-                                login: user.login
+                                login: user.login,
+                                type: members[i].membership_type
                             };
                             massUsers.push(tmp)
                         }
                         data.members = massUsers;
-                        res.render("flashmobPage", data)
+                        flashmob.getComments(function(err, comments){
+                            if(err) {console.log(err)
+                            res.send("err coments")}
+                            else{
+                                data.comments = comments
+                                res.render("flashmobPage", data)
+                            }
+                        })
+
+
                     });
                 })
             })

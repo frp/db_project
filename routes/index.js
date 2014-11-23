@@ -32,6 +32,22 @@ module.exports = function(app){
         })
     })
 
+    app.post('/flashmobs/:id/addcomment', function(req,res){
+        Flashmob.findById(req.params.id, function(err, flashmob){
+            if(err) res.send("{HTYM GJKYFZ !")
+            else{
+                var comm = {text: req.body.text, flashmob_id: req.params.id, user_id: req.session.userId, date: new Date() }
+                flashmob.addComment(comm, function(err){
+                    if(err) res.send("ХРЕНЬ ПОЛНАЯ")
+                    else{
+                        res.redirect('/flashmobs/'+req.params.id)
+                    }
+                })
+            }
+        })
+    })
+
+
     app.get('/exit', function(req,res){
         req.session.userId = null;
         req.session.login = null;
