@@ -32,7 +32,6 @@ exports.get = function(req, res, next){
                                 res.render("flashmobPage", data)
                             }
                         })
-                        res.render("flashmobPage", data)
                     });
                    
                      
