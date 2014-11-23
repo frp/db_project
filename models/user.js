@@ -11,7 +11,8 @@ var schema = {
 	login: {
 		db_type: 'VARCHAR',
 		length: 30,
-		required: true
+		required: true,
+		unique: true
 	},
 	name: {
 		db_type: 'VARCHAR',

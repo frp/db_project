@@ -54,6 +54,24 @@ describe('User', function() {
 		});
 	});
 
+	it ('should not allow registering two users with the same login', function(done) {
+		user.save({
+			login: 'user',
+			email: 'test@gmail.com',
+			password: 'testpass'
+		}, function (err) {
+			if (err) throw err;
+			user.save({
+				login: 'user',
+				email: 'test2@gmail.com',
+				password: 'testpass2'
+			}, function (err) {
+				err.should.be.ok;
+				done();
+			});
+		});
+	});
+
 	describe('Operations with existing user', function() {
 		beforeEach(helpers.setUpUser(function(done) {
 			done();

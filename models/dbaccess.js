@@ -38,6 +38,9 @@ exports.createTable = function(name, schema, cb) {
 			if (field.foreign_key)
 				query += ', FOREIGN KEY (' + field_name + ') REFERENCES ' +
 				field.referenceTable + '(' + field.referenceField + ')';
+
+			if (field.unique)
+				query += ', UNIQUE (' + field_name + ')'
 		}
 	query += ')';
 	exports.pool.query(query, cb);
