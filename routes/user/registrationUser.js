@@ -39,7 +39,8 @@ function normalizeUser(user){
     normUser.name = user.name;
     normUser.surname = user.surname;
     normUser.sex = user.sex;
-    normUser.location = user.location;
+    normUser.country = user.country;
+    normUser.city = user.city;
     normUser.interests = user.interests;
     normUser.email = user.email;
     normUser.birthDate = user.birthDate;

@@ -25,7 +25,11 @@ var schema = {
 		db_type: 'ENUM',
 		values: ['M', 'F']
 	},
-	location: {
+	country: {
+		db_type: 'VARCHAR',
+		length: 50
+	},
+	city: {
 		db_type: 'VARCHAR',
 		length: 50
 	},
