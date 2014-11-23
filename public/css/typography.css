@@ -15,17 +15,17 @@ body {
 
 a.link-button{
 	text-decoration: none;
-	color: #606060;
+	color: #666;
 }
 
 a.link-button:hover{ color: #999; }
 
 a{
 	text-decoration: none;
-	color: #9a0202;
+	color: #666;
 }
 
-a:hover{ color: #631313; }	
+a:hover{ color: #666; }	
 
 .home-quotes{
 	font-size: 18px;

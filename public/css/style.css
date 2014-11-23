@@ -341,8 +341,8 @@ h6.header-line{
 .post.compact .feature-image{
 	overflow: hidden;
 	float: left;
-	width: 272px;
-	height: 272px;
+	width: 90px;
+	height: 90px;
 	padding: 5px;
 	margin-bottom: 10px;
 	background: #fff;
@@ -354,16 +354,20 @@ h6.header-line{
 .post.compact .feature-image a{
 	display: block;
 	overflow: hidden;
-	width: 272px;
-	height: 272px;
+	width: 90px;
+	height: 90px;
 }
 
 .post.compact .the-excerpt{
 	float: left;
-	width: 280px;
+	width: 462px;
 	margin-left: 30px;
 }
-
+.post.compact.the-excerpt a {
+	display: block; /* Ссылка как блочный элемент */
+	height: 100%; /* Высота на весь слой */
+	color: #666; /* Цвет ссылки */
+}
 .post.compact .the-excerpt .link-button{ margin-top: 21px; }
 
 /* BLOG - SINGLE -------------------------------------------------------*/
