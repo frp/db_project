@@ -20,6 +20,7 @@
     "mysql2": "~0.13.0",
     "mocha": "~2.0.1",
     "should": "~4.3.0",
-    "synchronize": "~0.9.8"
+    "synchronize": "~0.9.8",
+    "dateformat": "~1.0.8"
   }
 }
