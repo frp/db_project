@@ -10,17 +10,20 @@ var schema = {
         db_type: 'INT',
         foreign_key: true,
         referenceTable: dbaccess.prefix + 'users',
-        referenceField: 'id'
+        referenceField: 'id',
+        required: true
     },
     flashmob_id: {
         db_type: 'INT',
         foreign_key: true,
         referenceTable: dbaccess.prefix + 'flashmobs',
-        referenceField: 'id'
+        referenceField: 'id',
+        required: true
     },
     membership_type: {
         db_type: 'ENUM',
-        values: ['main_moderator', 'moderator', 'invited', 'member']
+        values: ['main_moderator', 'moderator', 'invited', 'member'],
+        required: true
     }
 };
 

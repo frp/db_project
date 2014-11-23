@@ -13,32 +13,38 @@ exports.get = function(req, res, next){
                 data.organizer = {login: user.login, id: user.id}
                 flashmob.getMembers(function(err, members){
                     sync.fiber(function(){
-                        for(var i = 0; i < members.length; i++) {
-                            var user = sync.await(Users.findById(members[i].user_id, sync.defer()));
-                            var tmp = {
-                                id: user.id,
-                                login: user.login,
-                                type: members[i].membership_type
-                            };
-                            massUsers.push(tmp)
+                        if (members.length > 0) {
+                            sync.parallel(function () {
+                                for (var i = 0; i < members.length; i++) {
+                                    Users.findById(members[i].user_id, sync.defer());
+                                }
+                            });
+                            data.members = _.map(sync.await(), function(user) {
+                                return _.pick(user, ['id', 'login', 'membership_type']);
+                            });
                         }
-                        data.members = massUsers;
+                        else data.members = [];
                         flashmob.getComments(function(err, comments){
                             if(err) {console.log(err)
-                            res.send("err coments")}
+                                res.send("err coments")}
                             else{
                                 data.comments = comments
                                 res.render("flashmobPage", data)
                             }
                         })
-
-
+                        res.render("flashmobPage", data)
                     });
-                })
-            })
-        }
-    })
+                   
+                     
+
+                });
+             })
+            }
+        })
 }
+
+    
+
 exports.post = function(req, res, next){
 // TODO: are we need this method?
 }
