@@ -22,6 +22,7 @@ function normalizeUser(user)
 {
     user.birthDate = dateFormat(user.birthDate, "dd mm yyyy");
     if (user.sex == "M")
-        user.sex = "Male"
-    else user.sex = "Female"
+        user.sex = "Male";
+    else if (user.sex == "F")
+        user.sex = "Female";
 }

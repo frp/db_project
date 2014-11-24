@@ -26,6 +26,7 @@ exports.get = function(req, res, next){
                             for (var i = 0; i < data.members.length; i++)
                                 data.members[i].type = members[i].membership_type;
                         }
+                        else data.members = [];
 
                         console.log(data.members);
                         flashmob.getComments(function(err, comments){
