@@ -12,11 +12,17 @@ exports.setUpDb = function (cb) {
         sync.fiber(function(){
             sync.await(dbaccess.dropAllTables(sync.defer()));
             sync.await(user.initTables(sync.defer()));
-            sync.await(flashmob.initTables(sync.defer()));
-            sync.await(membership.initTables(sync.defer()));
-            sync.await(stage.initTables(sync.defer()));
-            sync.await(comment.initTables(sync.defer()));
-            sync.await(message.initTables(sync.defer()));
+            sync.parallel(function() {
+                flashmob.initTables(sync.defer());
+                message.initTables(sync.defer());
+            });
+            sync.await();
+            sync.parallel(function() {
+                membership.initTables(sync.defer());
+                stage.initTables(sync.defer());
+                comment.initTables(sync.defer())
+            });
+            sync.await();
             cb(test);
         });
     };
