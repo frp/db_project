@@ -2,19 +2,21 @@ var dbaccess = require('./models/dbaccess');
 var user = require('./models/user');
 var flashmob = require('./models/flashmob');
 var membership = require('./models/membership');
+var stage = require('./models/stage');
+var comment = require('./models/comment');
+var message = require('./models/message');
+var sync = require('synchronize');
 
-dbaccess.dropAllTables(function(err) {
+sync.fiber(function() {
+	sync.await(dbaccess.dropAllTables(sync.defer()));
 	console.log('Tables deleted');
-	if (err) throw err;
-	user.initTables(function(err) {
-		flashmob.initTables(function(err) {
-			if (err) throw err;
-			membership.initTables(function (err) {
-				console.log('Tables initialized');
-				dbaccess.pool.end(function() {});
-			});
-		});
-	});
+	sync.await(dbaccess.dropAllTables(sync.defer()));
+	sync.await(user.initTables(sync.defer()));
+	sync.await(flashmob.initTables(sync.defer()));
+	sync.await(membership.initTables(sync.defer()));
+	sync.await(stage.initTables(sync.defer()));
+	sync.await(comment.initTables(sync.defer()));
+	sync.await(message.initTables(sync.defer()));
+	console.log('Tables initialized');
+	dbaccess.pool.end(function() {});
 });
-
-
