@@ -1,6 +1,7 @@
 var Flashmob = require("../../models/flashmob")
 var Users = require("../../models/user")
 var sync = require('synchronize');
+var _ = require('lodash');
 exports.get = function(req, res, next){
     var flashmobId = req.params.id
     var data = {session:req.session}
@@ -20,10 +21,13 @@ exports.get = function(req, res, next){
                                 }
                             });
                             data.members = _.map(sync.await(), function(user) {
-                                return _.pick(user, ['id', 'login', 'membership_type']);
+                                return _.pick(user, ['id', 'login']);
                             });
+                            for (var i = 0; i < data.members.length; i++)
+                                data.members[i].type = members[i].membership_type;
                         }
-                        else data.members = [];
+
+                        console.log(data.members);
                         flashmob.getComments(function(err, comments){
                             if(err) {console.log(err)
                                 res.send("err coments")}
