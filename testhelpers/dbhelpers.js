@@ -7,60 +7,6 @@ var comment = require('../models/comment');
 var message = require('../models/message');
 var sync = require('synchronize');
 
-exports.setUpFlashmobTables = function (cb) {
-    return function(test) {
-        flashmob.initTables(function(err) {
-            if (err) throw err;
-            cb(err, test);
-        });
-    };
-};
-
-exports.setUpUserTables = function (cb) {
-    return function(test) {
-        user.initTables(function(err) {
-            if (err) throw err;
-            cb(err, test);
-        });
-    };
-};
-
-exports.setUpMembershipTables = function (cb) {
-    return function(test) {
-        membership.initTables(function(err) {
-            if (err) throw err;
-            cb(err, test);
-        });
-    };
-};
-
-exports.setUpStageTables = function (cb) {
-    return function(test) {
-        stage.initTables(function(err) {
-            if (err) throw err;
-            cb(err, test);
-        });
-    };
-};
-
-exports.setUpCommentTables = function (cb) {
-    return function(test) {
-        comment.initTables(function(err) {
-            if (err) throw err;
-            cb(test);
-        });
-    };
-};
-
-exports.setUpMessageTables = function (cb) {
-    return function(test) {
-        message.initTables(function(err) {
-            if (err) throw err;
-            cb(test);
-        });
-    };
-};
-
 exports.setUpDb = function (cb) {
     return function(test) {
         sync.fiber(function(){
