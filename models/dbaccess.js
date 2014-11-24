@@ -138,23 +138,38 @@ exports.saveFunction = function(tableName, schema, idField) {
 };
 
 // FIXME: Refactor, get rid of this dirty hack
-var tablesToDrop = ['dbp_memberships', 'dbp_stages', 'dbp_comments', 'dbp_flashmobs', 'dbp_users'];
+var tablesToDrop = ['dbp_memberships', 'dbp_stages', 'dbp_comments', 'dbp_flashmobs', 'dbp_messages', 'dbp_users'];
 
 exports.dropAllTables = function(cb) {
 	exports.pool.query('DROP TABLE IF EXISTS ' + tablesToDrop.join(','), cb);
 };
 
-function generateWhereClause(object) {
-	var where = '';
-	var first = true;
-	for (var field_name in object) {
-		if (object.hasOwnProperty(field_name)) {
-			if (first) first = false;
-			else where += ' AND ';
-			where += mysql.escapeId(field_name) + ' = ' + mysql.escape(object[field_name]);
-		}
+function generateOrClause(alternatives) {
+	var query = '';
+	for (var i = 0; i < alternatives.length; i++) {
+		if (i != 0)
+			query += ' OR ';
+		query += '(' + generateWhereClause(alternatives[i]) + ')';
 	}
-	return where;
+	return query;
+}
+
+function generateWhereClause(object) {
+	if (object.or) {
+		return generateOrClause(object.or);
+	}
+	else {
+		var where = '';
+		var first = true;
+		for (var field_name in object) {
+			if (object.hasOwnProperty(field_name)) {
+				if (first) first = false;
+				else where += ' AND ';
+				where += mysql.escapeId(field_name) + ' = ' + mysql.escape(object[field_name]);
+			}
+		}
+		return where;
+	}
 }
 
 exports.findFunction = function(tableName) {

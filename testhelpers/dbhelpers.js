@@ -4,12 +4,14 @@ var membership = require('../models/membership');
 var dbaccess = require('../models/dbaccess');
 var stage = require('../models/stage');
 var comment = require('../models/comment');
+var message = require('../models/message');
+var sync = require('synchronize');
 
 exports.setUpFlashmobTables = function (cb) {
     return function(test) {
         flashmob.initTables(function(err) {
             if (err) throw err;
-            cb(test);
+            cb(err, test);
         });
     };
 };
@@ -18,7 +20,7 @@ exports.setUpUserTables = function (cb) {
     return function(test) {
         user.initTables(function(err) {
             if (err) throw err;
-            cb(test);
+            cb(err, test);
         });
     };
 };
@@ -27,7 +29,7 @@ exports.setUpMembershipTables = function (cb) {
     return function(test) {
         membership.initTables(function(err) {
             if (err) throw err;
-            cb(test);
+            cb(err, test);
         });
     };
 };
@@ -36,7 +38,7 @@ exports.setUpStageTables = function (cb) {
     return function(test) {
         stage.initTables(function(err) {
             if (err) throw err;
-            cb(test);
+            cb(err, test);
         });
     };
 };
@@ -50,12 +52,26 @@ exports.setUpCommentTables = function (cb) {
     };
 };
 
+exports.setUpMessageTables = function (cb) {
+    return function(test) {
+        message.initTables(function(err) {
+            if (err) throw err;
+            cb(test);
+        });
+    };
+};
+
 exports.setUpDb = function (cb) {
     return function(test) {
-        dbaccess.dropAllTables(function(err, result) {
-            if (err) throw(err);
-            exports.setUpUserTables(exports.setUpFlashmobTables(exports.setUpMembershipTables(
-                exports.setUpStageTables(exports.setUpCommentTables(cb)))))(test);
+        sync.fiber(function(){
+            sync.await(dbaccess.dropAllTables(sync.defer()));
+            sync.await(user.initTables(sync.defer()));
+            sync.await(flashmob.initTables(sync.defer()));
+            sync.await(membership.initTables(sync.defer()));
+            sync.await(stage.initTables(sync.defer()));
+            sync.await(comment.initTables(sync.defer()));
+            sync.await(message.initTables(sync.defer()));
+            cb(test);
         });
     };
 };
