@@ -1,13 +1,8 @@
+var config = require('../config/index');
 var mysql = require('mysql2');
 var _ = require('lodash');
-exports.pool  = mysql.createPool({
-	connectionLimit: 10,
-	host: process.env.DBP_HOST || 'localhost',
-	user: process.env.DBP_USER || 'db_project',
-	password: process.env.DBP_PASSWORD || process.env.DBP_PASSWORD ? '' : 'db_password',
-	database: process.env.DBP_DATABASE || 'db_project'
-});
-exports.prefix = 'dbp_';
+exports.pool  = mysql.createPool(config.connectionInfo);
+exports.prefix = config.db_prefix;
 
 exports.createTable = function(name, schema, cb) {
 	var query = 'CREATE TABLE ' + name + ' (';
@@ -153,7 +148,8 @@ exports.saveFunction = function(tableName, schema, idField) {
 };
 
 // FIXME: Refactor, get rid of this dirty hack
-var tablesToDrop = ['dbp_memberships', 'dbp_stages', 'dbp_comments', 'dbp_documents', 'dbp_flashmobs', 'dbp_messages', 'dbp_users'];
+var tablesToDrop = _.map(['memberships', 'stages', 'comments', 'documents', 'flashmobs', 'messages', 'users'],
+	function(el) { return exports.prefix + el; });
 
 exports.dropAllTables = function(cb) {
 	exports.pool.query('DROP TABLE IF EXISTS ' + tablesToDrop.join(','), cb);

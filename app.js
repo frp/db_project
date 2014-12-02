@@ -13,13 +13,7 @@ var config = require('./config');
 var user = require('./models/user');
 var dbaccess = require('./models/dbaccess');
 
-var sessionStore = new SessionStore( {
-    host: process.env.DBP_HOST || 'localhost',
-    user: process.env.DBP_USER || 'db_project',
-    port: 3306,
-    password: process.env.DBP_PASSWORD || process.env.DBP_PASSWORD ? '' : 'db_password',
-    database: process.env.DBP_DATABASE || 'db_project'
-});
+var sessionStore = new SessionStore(config.connectionInfo);
 
 
 var app = express();
