@@ -10,14 +10,14 @@ describe('Flashmob', function() {
     it('should generate error if flashmob with such id does not exist', function(done) {
         flashmob.findById(5, function(err, data) {
             (data === null).should.be.true;
-            err.should.be.equal(dbaccess.err_record_not_found);
+            err.should.be.an.instanceOf(dbaccess.RecordNotFoundError);
             done();
         });
     });
 
     it('should enforce required fields', function(done) {
         flashmob.save({title: 'New flashmob'}, function(err) {
-            err.should.be.equal(dbaccess.err_validation_failed);
+            err.should.be.an.instanceOf(dbaccess.ValidationError);
             done();
         });
     });

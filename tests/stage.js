@@ -30,7 +30,7 @@ describe('Stage', function() {
 
     it('should enforce required fields', function(done) {
         stage.save({title: 't'}, function(err) {
-            err.should.be.equal(dbaccess.err_validation_failed);
+            err.should.be.an.instanceOf(dbaccess.ValidationError);
             done();
         });
     });

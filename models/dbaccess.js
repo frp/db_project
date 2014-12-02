@@ -43,23 +43,31 @@ exports.createTable = function(name, schema, cb) {
 	exports.pool.query(query, cb);
 };
 
-exports.err_validation_failed = -3;
-
 exports.validate = function(object, schema) {
+	var validation_errors = [];
 	for (var field_name in schema)
 		if (schema.hasOwnProperty(field_name)) {
 			if (!!schema[field_name].required && typeof(object[field_name]) == 'undefined')
-				return false;
+				validation_errors.push('required field "' + field_name + '" value not found');
 			if (schema[field_name].db_type == 'ENUM' && !!object[field_name] &&
 				schema[field_name].values.indexOf(object[field_name]) == -1) {
-				return false;
+				validation_errors.push('"' + object[field_name] + '" is not a supported value for "' + field_name + '" field');
 			}
 		}
-	return true;
+	return validation_errors;
 };
 
+exports.ValidationError = function(errors) {
+	this.name = 'Validation Error';
+	this.message = errors.join(', ');
+	this.validationErrors = errors;
+}
+
+exports.ValidationError.prototype = new Error();
+
 exports.insertIntoTable = function(name, object, schema, cb) {
-	if (exports.validate(object, schema)) {
+	var validationErrors = exports.validate(object, schema);
+	if (validationErrors.length == 0) {
 		var query = "INSERT INTO " + name + " (";
 		var first = true;
 		for (var field_name in object)
@@ -90,11 +98,12 @@ exports.insertIntoTable = function(name, object, schema, cb) {
 		query += ')';
 		exports.pool.query(query, values, cb);
 	}
-	else cb(exports.err_validation_failed);
+	else cb(new exports.ValidationError(validationErrors));
 };
 
 exports.update = function(name, object, schema, cb) {
-	if (exports.validate(object, schema)) {
+	var validationErrors = exports.validate(object, schema);
+	if (validationErrors.length == 0) {
 		var query = "UPDATE " + name + " SET ";
 
 		var first = true;
@@ -112,16 +121,22 @@ exports.update = function(name, object, schema, cb) {
 
 		exports.pool.query(query, values, cb);
 	}
-	else cb(exports.err_validation_failed);
+	else cb(new exports.ValidationError(validationErrors));
 };
 
-exports.err_record_not_found = -1;
+exports.RecordNotFoundError = function(message) {
+	this.name = 'Record not found';
+	this.message = message;
+};
+
+exports.RecordNotFoundError.prototype = new Error();
+
 exports.findByIdFunction = function(tableName, idFieldName, objectToExtend) {
 	return function(id, cb) {
 		exports.pool.query('SELECT * FROM ' + tableName + ' WHERE ' + idFieldName + ' = ?',
 			[id], function(err, rows) {
 				if (rows.length != 1)
-					cb(exports.err_record_not_found, null);
+					cb(new exports.RecordNotFoundError('Record with id=' + id + ' not found'), null);
 				else
 					cb(err, _.assign(objectToExtend, rows[0]));
 			});

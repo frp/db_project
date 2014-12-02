@@ -71,8 +71,6 @@ var schema = {
 	}
 };
 
-exports.err_wrong_password = -2;
-
 exports.findById = dbaccess.findByIdFunction(tableName, 'id', {});
 
 exports.save = dbaccess.saveFunction(tableName, schema, 'id');
@@ -83,14 +81,21 @@ exports.initTables = function(cb) {
 	});
 };
 
+exports.AuthenticationError = function() {
+	this.name = 'Authentication Error';
+	this.message = 'Authentication failed. Non-existent login or wrong password';
+};
+
+exports.AuthenticationError.prototype = new Error();
+
 exports.authorization = function(login, password, cb) {
 	pool.query('SELECT id, password FROM ' + tableName + ' WHERE login = ?', [login], function(err, rows) {
 		if (err) throw err;
 		else {
 			if (typeof rows[0] == 'undefined')
-				cb(dbaccess.err_record_not_found, -1);
+				cb(new exports.AuthenticationError(), -1);
 			else if (password != rows[0].password)
-				cb(exports.err_wrong_password, -1);
+				cb(new exports.AuthenticationError(), -1);
 			else
 				cb(null, rows[0].id);
 		}

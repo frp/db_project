@@ -12,14 +12,14 @@ describe('User', function() {
 	it('should generate error when user does not exist', function(done) {
 		user.findById(5, function(err, data) {
 			(data === null).should.be.true;
-			err.should.be.equal(dbaccess.err_record_not_found);
+			err.should.be.an.instanceOf(dbaccess.RecordNotFoundError);
 			done();
 		});
 	});
 
 	it('should check for required fields', function(done) {
 		user.save({email: 'aaa@bbb.com'}, function(err) {
-			err.should.be.equal(dbaccess.err_validation_failed);
+			err.should.be.an.instanceOf(dbaccess.ValidationError);
 			done();
 		});
 	});
@@ -84,14 +84,14 @@ describe('User', function() {
 
 		it('should reject wrong user', function(done) {
 			user.authorization('test2', 'testpass', function(err) {
-				err.should.be.equal(dbaccess.err_record_not_found);
+				err.should.be.an.instanceOf(user.AuthenticationError);
 				done();
 			});
 		});
 
 		it('should reject wrong password', function(done) {
 			user.authorization('user', 'testvfgfdpass', function(err) {
-				err.should.be.equal(user.err_wrong_password);
+				err.should.be.an.instanceOf(user.AuthenticationError);
 				done();
 			});
 		});
