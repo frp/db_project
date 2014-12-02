@@ -9,7 +9,8 @@ var expressValidator = require('express-validator')
 
 var config = require('./config');
 
-var user = require('./models/user')
+var user = require('./models/user');
+var dbaccess = require('./models/dbaccess');
 
 
 var app = express();
@@ -55,8 +56,9 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
     if (err instanceof user.AuthenticationError)
         res.render('errors/autherror', {session: req.session});
-    else
-        return next(err);
+    else if (err instanceof dbaccess.RecordNotFoundError)
+        res.status(404).render('errors/notfounderr', {session: req.session});
+    else return next(err);
 });
 
 // development error handler
