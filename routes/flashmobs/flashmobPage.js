@@ -7,7 +7,7 @@ exports.get = function(req, res, next){
     var data = {session:req.session}
     var massUsers = []
     Flashmob.findById(flashmobId, function(err, flashmob){
-        if(err) res.send("not found")
+        if(err) res.status(404).render('errors/notfounderr', {session: req.session})
         else{
             data.flashmob = flashmob
             Users.findById(flashmob.organizer, function(err, user){
@@ -38,8 +38,8 @@ exports.get = function(req, res, next){
                             }
                         })
                     });
-                   
-                     
+
+
 
                 });
              })
@@ -47,7 +47,7 @@ exports.get = function(req, res, next){
         })
 }
 
-    
+
 
 exports.post = function(req, res, next){
 // TODO: are we need this method?
