@@ -6,11 +6,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator')
+var SessionStore = require('express-mysql-session');
 
 var config = require('./config');
 
 var user = require('./models/user');
 var dbaccess = require('./models/dbaccess');
+
+var sessionStore = new SessionStore( {
+    host: process.env.DBP_HOST || 'localhost',
+    user: process.env.DBP_USER || 'db_project',
+    port: 3306,
+    password: process.env.DBP_PASSWORD || process.env.DBP_PASSWORD ? '' : 'db_password',
+    database: process.env.DBP_DATABASE || 'db_project'
+});
 
 
 var app = express();
@@ -28,8 +37,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(express.session({secret: "my secret string",
-    cookie: config.getCookie()}))
+app.use(express.session({
+    secret: "my secret string",
+    cookie: config.getCookie(),
+    store: sessionStore
+}));
 
 app.use(expressValidator());
 
