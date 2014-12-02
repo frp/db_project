@@ -3,7 +3,7 @@ var dateFormat = require("dateformat")
 exports.get = function(req, res, next){
     var userId = req.params.id
     Users.findById(userId, function(err, user){
-        if(err) res.send("User not found")
+        if(err) res.render('errors/nousererr', {session: req.session});
         else{
             console.log(user.birthDate);
             normalizeUser(user)

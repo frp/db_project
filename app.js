@@ -54,7 +54,7 @@ app.use(function(req, res, next) {
 // nice error handlers
 app.use(function(err, req, res, next) {
     if (err instanceof user.AuthenticationError)
-        res.render('autherror', {session: req.session});
+        res.render('errors/autherror', {session: req.session});
     else
         return next(err);
 });
@@ -63,7 +63,7 @@ app.use(function(err, req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-        res.render('error', {
+        res.render('errors/error', {
             message: err.message,
             error: err
         });
