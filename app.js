@@ -9,6 +9,8 @@ var expressValidator = require('express-validator')
 
 var config = require('./config');
 
+var user = require('./models/user')
+
 
 var app = express();
 
@@ -48,6 +50,14 @@ app.use(function(req, res, next) {
 });
 
 /// error handlers
+
+// nice error handlers
+app.use(function(err, req, res, next) {
+    if (err instanceof user.AuthenticationError)
+        res.render('autherror', {session: req.session});
+    else
+        return next(err);
+});
 
 // development error handler
 // will print stacktrace

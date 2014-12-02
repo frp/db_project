@@ -28,7 +28,8 @@ module.exports.post = function(req, res, next){
 
         Users.authorization(req.body.login, req.body.password, function (err, userId) {
             if (err) {
-                res.render("index",{session:req.session})}
+                return next(err);
+            }
             else {
                 req.session.login = req.body.login;
                 req.session.userId = userId;
