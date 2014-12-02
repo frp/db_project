@@ -52,7 +52,7 @@ module.exports = function(app){
         })
     })
 
-    app.post('/flashmobs/:id/documents/', multer({dest: "./public/uploads"}), require('./flashmobs/documents').post)
+    app.post('/flashmobs/:id/documents/', multer({dest: "./uploads"}), require('./documents/upload').post)
 
 
     app.get('/exit', function(req,res){
