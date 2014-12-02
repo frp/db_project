@@ -1,5 +1,4 @@
 <% layout('layout.ejs') %>
-
     <!-- MAIN -->
     <div id="main">
 
@@ -103,9 +102,9 @@
                 <div class="toggle-container">
                     <div class="block">
                         <ul>
-                            <li><a href="#">Документ 1</a></li>
-                            <li><a href="#">Документ 2</a></li>
-                            <li><a href="#">Документ 3</a></li>
+                            <% for (var i = 0; i < documents.length; i++) { %>
+                                <li><a href="/documents/<%- documents[i].id %>"><%- documents[i].name %></a></li>
+                            <% } %>
                         </ul>
                         <form action="/flashmobs/<%-flashmob.id%>/documents/" method="post" enctype="multipart/form-data">
                             <input type="file" name="document"><br>

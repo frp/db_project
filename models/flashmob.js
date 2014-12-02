@@ -4,6 +4,7 @@ var membership = require('./membership');
 var _ = require('lodash');
 var stage = require('./stage');
 var comment = require('./comment');
+var document = require('./document');
 
 // FIXME: determine which fields are required and which aren't
 var schema = {
@@ -108,6 +109,10 @@ Flashmob.prototype.addComment = function(data, cb) {
 Flashmob.prototype.getComments = function(cb) {
 	comment.find({flashmob_id: this.id}, [], cb);
 };
+
+Flashmob.prototype.getDocuments = function(cb) {
+	document.find({flashmob_id: this.id}, [], cb);
+}
 
 exports.findById = dbaccess.findByIdFunction(tableName, 'id', new Flashmob());
 

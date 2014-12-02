@@ -17,6 +17,8 @@ module.exports = function(app){
 
     app.get('/flashmobs/:id', require('./flashmobs/flashmobPage').get)
 
+    app.get('/documents/:id', require('./documents/download').get);
+
     //app.post('/falshmob/:id', require('./flashmob/flashmobPage').post)
     app.get('/createFlashmob',require('./flashmobs/registrationFlashmob').get)
     app.post('/createFlashmob',require('./flashmobs/registrationFlashmob').post)

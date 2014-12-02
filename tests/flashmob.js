@@ -1,6 +1,8 @@
 var flashmob = require('../models/flashmob');
 var dbaccess = require('../models/dbaccess');
+var document = require('../models/document')
 var helpers = require('../testhelpers/dbhelpers.js');
+var sync = require('synchronize');
 
 describe('Flashmob', function() {
     beforeEach(helpers.setUpDb(function(done) {
@@ -100,6 +102,37 @@ describe('Flashmob', function() {
                         done();
                     });
                 });
+            });
+        });
+
+        it ('should support getting documents', function(done) {
+            sync.fiber(function() {
+                sync.await(flashmob.save({
+                    title: 'My second flashmob',
+                    start_datetime: new Date(2014, 1, 1),
+                    end_datetime: new Date(2014, 1, 2),
+                    type: 'open',
+                    status: 'active',
+                    organizer: 1,
+                    editing_rights: 'organizer',
+                    invitation_rights: 'organizer',
+                    documents_rights: 'organizer'
+                }, sync.defer()));
+                sync.await(document.save({
+                    flashmob_id: 1,
+                    name: 'doc1.doc',
+                    path: 'tpp1'
+                }, sync.defer()));
+                sync.await(document.save({
+                    flashmob_id: 2,
+                    name: 'doc2.doc',
+                    path: 'tpp2'
+                }, sync.defer()));
+                var data = sync.await(flashmob.findById(1, sync.defer()));
+                var documents = sync.await(data.getDocuments(sync.defer()));
+                documents.length.should.be.equal(1);
+                documents[0].flashmob_id.should.be.equal(1);
+                done();
             });
         });
     });
