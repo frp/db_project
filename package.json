@@ -21,6 +21,7 @@
     "mocha": "~2.0.1",
     "should": "~4.3.0",
     "synchronize": "~0.9.8",
-    "dateformat": "~1.0.8"
+    "dateformat": "~1.0.8",
+    "multer": "~0.1.6"
   }
 }

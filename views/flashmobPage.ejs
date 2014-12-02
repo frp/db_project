@@ -107,6 +107,10 @@
                             <li><a href="#">Документ 2</a></li>
                             <li><a href="#">Документ 3</a></li>
                         </ul>
+                        <form action="/flashmobs/<%-flashmob.id%>/documents/" method="post" enctype="multipart/form-data">
+                            <input type="file" name="document"><br>
+                            <input type="submit" value="Завантажити">
+                        </form>
                     </div>
                 </div>
                 <h5 class="toggle-trigger custom"><a href="#">Карта події</a></h5>

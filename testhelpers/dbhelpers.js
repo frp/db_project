@@ -5,6 +5,7 @@ var dbaccess = require('../models/dbaccess');
 var stage = require('../models/stage');
 var comment = require('../models/comment');
 var message = require('../models/message');
+var document = require('../models/document');
 var sync = require('synchronize');
 
 exports.setUpDb = function (cb) {
@@ -20,7 +21,8 @@ exports.setUpDb = function (cb) {
             sync.parallel(function() {
                 membership.initTables(sync.defer());
                 stage.initTables(sync.defer());
-                comment.initTables(sync.defer())
+                comment.initTables(sync.defer());
+                document.initTables(sync.defer());
             });
             sync.await();
             cb(test);

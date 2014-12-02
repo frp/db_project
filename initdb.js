@@ -17,6 +17,7 @@ sync.fiber(function() {
 	sync.await(stage.initTables(sync.defer()));
 	sync.await(comment.initTables(sync.defer()));
 	sync.await(message.initTables(sync.defer()));
+	sync.await(document.initTables(sync.defer()));
 	console.log('Tables initialized');
 	dbaccess.pool.end(function() {});
 });

@@ -1,4 +1,7 @@
 var Flashmob = require("../models/flashmob")
+
+var multer = require('multer');
+
 module.exports = function(app){
     app.get('/', require("./home").get)
     app.post('/', require("./home").post)
@@ -46,6 +49,8 @@ module.exports = function(app){
             }
         })
     })
+
+    app.post('/flashmobs/:id/documents/', multer({dest: "./public/uploads"}), require('./flashmobs/documents').post)
 
 
     app.get('/exit', function(req,res){
