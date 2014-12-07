@@ -25,10 +25,10 @@ module.exports = function(app){
 
     app.get('/flashmobs/:id/in', function(req,res){
         Flashmob.findById(req.params.id, function(err, flashmob){
-            if(err) res.send("{HTYM GJKYFZ !")
+            if(err) return next(err);
             else{
                 flashmob.addMember(req.session.userId, "member", function(err){
-                    if(err) res.send("ХРЕНЬ ПОЛНАЯ")
+                    if(err) return next(err);
                     else{
                         res.redirect('/flashmobs/'+req.params.id)
                     }
@@ -37,13 +37,13 @@ module.exports = function(app){
         })
     })
 
-    app.post('/flashmobs/:id/addcomment', function(req,res){
+    app.post('/flashmobs/:id/addcomment', function(req,res, next){
         Flashmob.findById(req.params.id, function(err, flashmob){
-            if(err) res.send("{HTYM GJKYFZ !")
+            if(err) return next(err);
             else{
                 var comm = {text: req.body.text, flashmob_id: req.params.id, user_id: req.session.userId, date: new Date() }
                 flashmob.addComment(comm, function(err){
-                    if(err) res.send("ХРЕНЬ ПОЛНАЯ")
+                    if(err) return next(err);
                     else{
                         res.redirect('/flashmobs/'+req.params.id)
                     }
