@@ -18,6 +18,9 @@ var schema = {
         length: 150,
         required: true
     },
+    description: {
+        db_type: 'TEXT'
+    },
     responsible_id: {
         db_type: 'INT',
         foreign_key: true,

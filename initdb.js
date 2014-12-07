@@ -5,6 +5,7 @@ var membership = require('./models/membership');
 var stage = require('./models/stage');
 var comment = require('./models/comment');
 var message = require('./models/message');
+var document = require('./models/document');
 var sync = require('synchronize');
 
 sync.fiber(function() {

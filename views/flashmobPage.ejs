@@ -51,23 +51,23 @@
                     <div class="block">
 
                         <!-- toggle -->
-                        <h5 class="toggle-trigger custom"><a href="#">Етап І</a></h5>
+                        <% for (var i = 0; i < stages.length; i++) { %>
+                        <h5 class="toggle-trigger custom"><a href="#">Етап <%-i+1%></a></h5>
                         <div class="toggle-container">
                             <div class="block">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. </p>
+                                <p><%-stages[i].description%></p>
 
                             </div>
                         </div>
-                        <h5 class="toggle-trigger custom"><a href="#">Етап ІІ</a></h5>
+                        <% } %>
+                        <h5 class="toggle-trigger custom"><a href="#">Додати етап</a></h5>
                         <div class="toggle-container">
                             <div class="block">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. </p>
-                            </div>
-                        </div>
-                        <h5 class="toggle-trigger custom"><a href="#">Етап ІІІ</a></h5>
-                        <div class="toggle-container">
-                            <div class="block">
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. </p>
+                                <form action="/flashmobs/<%-flashmob.id%>/stages/" method="post">
+                                    <input name="title" placeholder="Заголовок"><br>
+                                    <textarea name="description" placeholder="Опис"></textarea><br>
+                                    <input type="submit" value="Додати">
+                                </form>
                             </div>
                         </div>
                         <p class="clear"></p>

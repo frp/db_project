@@ -37,6 +37,8 @@ exports.get = function(req, res, next){
             data.documents = await(flashmob.getDocuments(defer()));
             console.log(data);
 
+            data.stages = await(flashmob.getStages(defer()));
+
             res.render("flashmobPage", data);
             console.log("rendered");
         }
