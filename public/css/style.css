@@ -104,13 +104,19 @@ h6.header-line{
 }
 
 #sidebar #searchform .login {
-	width: 229px;
+	-webkit-background-image: url("../img/search-bg.png");
 	height: 26px;
 	padding: 0px 10px;
 	margin: 5px;
 	border: 0;
 	background: url(../img/search-bg.png) no-repeat transparent 0px 0px;
 	color:gray;
+}
+input:-webkit-autofill {
+	background: url(../img/search-bg.png);
+ }
+input:-webkit-autofill:focus {
+	background: url(../img/search-bg.png);
 }
 
 #sidebar #searchform #searchsubmit{
