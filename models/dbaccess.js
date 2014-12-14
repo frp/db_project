@@ -4,6 +4,8 @@ var _ = require('lodash');
 exports.pool  = mysql.createPool(config.connectionInfo);
 exports.prefix = config.db_prefix;
 
+console.log(config.db_prefix);
+
 exports.createTable = function(name, schema, cb) {
 	var query = 'CREATE TABLE ' + name + ' (';
 	var first = true;

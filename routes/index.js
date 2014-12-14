@@ -5,10 +5,8 @@ var multer = require('multer');
 module.exports = function(app){
     app.get('/', require("./home").get)
     app.post('/', require("./home").post)
-
     app.get('/users', require('./user/users').get)
     app.post('/users', require('./user/users').post)
-
     app.get('/registration', require('./user/registrationUser').get)
     app.post('/registration', require('./user/registrationUser').post)
 
@@ -36,7 +34,6 @@ module.exports = function(app){
             }
         })
     })
-
     app.post('/flashmobs/:id/addcomment', function(req,res){
         Flashmob.findById(req.params.id, function(err, flashmob){
             if(err) res.send("{HTYM GJKYFZ !")
@@ -51,13 +48,14 @@ module.exports = function(app){
             }
         })
     })
-
     app.post('/flashmobs/:id/documents/', multer({dest: "./uploads"}), require('./documents/upload').post)
 
+    app.get('/mydialogs', require("./user/dialogs").get)
 
     app.get('/exit', function(req,res){
         req.session.userId = null;
         req.session.login = null;
         res.redirect('/');
     })
+    app.get('/mydialogs/:id', require("./user/chat").get)
 }

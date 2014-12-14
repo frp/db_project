@@ -38,6 +38,7 @@
 					<!-- filter -->
 				
 					<!-- Posts -->
+					<% for(var i = 0; i< dialogs.length; i++){%>
 					<div class="post compact">
 						<!-- feature image -->
 						<div class="feature-image">
@@ -46,77 +47,18 @@
 						<!-- ENDS feature image -->
 						<div class="the-excerpt">
 							<a href="1.html">
-								<h1>Alladin (Петро Причепа)</h1>
+								<h1><%-dialogs[i].name%></h1>
 								<!-- meta -->
 								<ul class="meta">
-									<li> 21.11.2014 о 15:00&nbsp;</li>
+									<li> <%-dialogs[i].last_message_date%>&nbsp;</li>
 								</ul>
 								<!-- ENDS meta -->
-								Чому не пишеш...
+								<%-dialogs[i].last_message%>
 							</a>
 						</div>
 						<div class="clear"></div>
 					</div>
-					
-					<div class="post compact">
-						<!-- feature image -->
-						<div class="feature-image">
-							<a href="single.html"><img src="img/dummies/avatar.jpg" alt="Feature image" /></a>
-						</div>
-						<!-- ENDS feature image -->
-						<div class="the-excerpt">
-							<a href="1.html">
-								<h1>Likan (Ліза Паніна)</h1>
-								<!-- meta -->
-								<ul class="meta">
-									<li> 21.11.2014 о 15:00&nbsp;</li>
-								</ul>
-								<!-- ENDS meta -->
-								Чому не пишеш...
-							</a>
-						</div>
-						<div class="clear"></div>
-					</div>
-					
-					<div class="post compact">
-						<!-- feature image -->
-						<div class="feature-image">
-							<a href="single.html"><img src="img/dummies/avatar.jpg" alt="Feature image" /></a>
-						</div>
-						<!-- ENDS feature image -->
-						<div class="the-excerpt">
-							<a href="1.html">
-								<h1>Tinki (Роман Роман)</h1>
-								<!-- meta -->
-								<ul class="meta">
-									<li> 21.11.2014 о 15:00&nbsp;</li>
-								</ul>
-								<!-- ENDS meta -->
-								Чому не пишеш...
-							</a>
-						</div>
-						<div class="clear"></div>
-					</div>
-					
-					<div class="post compact">
-						<!-- feature image -->
-						<div class="feature-image">
-							<a href="single.html"><img src="img/dummies/avatar.jpg" alt="Feature image" /></a>
-						</div>
-						<!-- ENDS feature image -->
-						<div class="the-excerpt">
-							<a href="1.html">
-								<h1>Hero (Ще Хтось)</h1>
-								<!-- meta -->
-								<ul class="meta">
-									<li> 21.11.2014 о 15:00&nbsp;</li>
-								</ul>
-								<!-- ENDS meta -->
-								Чому не пишеш...
-							</a>
-						</div>
-						<div class="clear"></div>
-					</div>
+								<%}%>
 					
 					<!-- ENDS posts -->
 					

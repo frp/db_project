@@ -1,8 +1,19 @@
 exports.getCookie = function(){
     return {
-        httpOnly:true,
+        path: '/',
+        httpOnly: true,
+        secure: false,
         maxAge: null
     }
+}
+exports.getKey = function(){
+	return "key"
+}
+exports.getSecret = function(){
+	return "SecretKey"
+}
+exports.getName = function(){
+    return "sid"
 }
 
 exports.connectionInfo = {
@@ -13,4 +24,4 @@ exports.connectionInfo = {
     database: process.env.DBP_DATABASE || 'db_project'
 };
 
-exports.dbPrefix = 'dbp_';
+exports.db_prefix = 'dbp_';
